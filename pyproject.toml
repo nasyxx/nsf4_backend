@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "nsf_es_backend"
+version = "0.1.0"
+description = "nsf elasticsearch backend"
+authors = ["Nasy <nasyxx+git@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+tqdm = "^4.41.0"
+elasticsearch = "^7.1.0"
+aiohttp = "^3.6.2"
+
+[tool.poetry.dev-dependencies]
+
+[tool.black]
+line-length = 79
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
