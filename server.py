@@ -73,7 +73,15 @@ async def search(key: str, filter_: str = "",) -> Dict[str, Any]:
     )
 
 
-async def handle(req: Request) -> Response:
+async def get_handle(req: Request) -> Response:
+    """Handle request."""
+    query = req.rel_url.query
+    key = query.get("key", "")
+    filter = query.get("filter", "")
+    print(key)
+    return web.json_response(await search(key, filter))
+
+
     """Handle request."""
     data = await req.post()
     return web.json_response(await search(data.get("key", "")))
