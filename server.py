@@ -47,13 +47,30 @@ from aiohttp.web import Request, Response
 from elasticsearch import Elasticsearch
 
 # Types
-from typing import Any, Callable, Dict
+from typing import Any, Dict
 
 
-async def search(key: str) -> Dict[str, Any]:
+async def search(key: str, filter_: str = "",) -> Dict[str, Any]:
     """Search function."""
     es = Elasticsearch()
-    return es.search(index="nsf4", body={"query": {"match": {"content": key}}})
+    return (
+        lambda res: {
+            "total": res["hits"]["total"],
+            "results": list(
+                filter(
+                    lambda hit: hit.get("_source", {}).get("title", "")
+                    == filter_
+                    or not filter_,
+                    res["hits"]["hits"],
+                )
+            ),
+        }
+    )(
+        es.search(
+            index="nsf4",
+            body={"size": 10000, "query": {"match": {"content": key}}},
+        )
+    )
 
 
 async def handle(req: Request) -> Response:
