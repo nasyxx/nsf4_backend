@@ -82,9 +82,12 @@ async def get_handle(req: Request) -> Response:
     return web.json_response(await search(key, filter))
 
 
+async def post_handle(req: Request) -> Response:
     """Handle request."""
     data = await req.post()
-    return web.json_response(await search(data.get("key", "")))
+    return web.json_response(
+        await search(data.get("key", ""), data.get("filter", ""))
+    )
 
 
 if __name__ == "__main__":
