@@ -1,4 +1,5 @@
 poetry.lock
+.pytype
 
 # Created by https://www.gitignore.io/api/emacs,macOS,python
 # Edit at https://www.gitignore.io/?templates=emacs,macOS,python
