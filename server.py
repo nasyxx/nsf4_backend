@@ -42,6 +42,7 @@ Which to you shall seem probable, of every
 """
 
 # Others
+import aiohttp_cors
 from aiohttp import web
 from aiohttp.web import Request, Response
 from elasticsearch import Elasticsearch
@@ -92,5 +93,15 @@ async def post_handle(req: Request) -> Response:
 
 if __name__ == "__main__":
     app = web.Application()
-    app.add_routes([web.post("/", handle)])
+    app.add_routes([web.post("/", post_handle), web.get("/q", get_handle)])
+    cors = aiohttp_cors.setup(
+        app,
+        defaults={
+            "*": aiohttp_cors.ResourceOptions(
+                allow_credentials=True, expose_headers="*", allow_headers="*",
+            )
+        },
+    )
+    for route in app.router.routes():
+        cors.add(route)
     web.run_app(app)
