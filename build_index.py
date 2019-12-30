@@ -84,3 +84,7 @@ def main() -> None:
         index(es, {"content": para, "title": title})
 
     es.indices.refresh("nsf4")
+
+
+if __name__ == "__main__":
+    main()
