@@ -81,7 +81,7 @@ def main() -> None:
     es.indices.exists("nsf4") and es.indices.delete("nsf4")
 
     for para, title in tqdm(paragraph(BASE, DOCS)):
-        index(es, {"content": para, "title": title})
+        para and index(es, {"content": para, "title": title})
 
     es.indices.refresh("nsf4")
 
