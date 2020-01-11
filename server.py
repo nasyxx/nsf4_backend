@@ -83,9 +83,9 @@ async def get_handle(req: Request) -> Response:
     return web.json_response(await search(key, filter))
 
 
-async def post_handle(req: Request) -> Response:
+async def post_query_handle(req: Request) -> Response:
     """Handle request."""
-    data = await req.post()
+    data = await req.json()
     return web.json_response(
         await search(data.get("key", ""), data.get("filter", ""))
     )
