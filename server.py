@@ -40,11 +40,14 @@ Which to you shall seem probable, of every
   These happen'd accidents
                           -- The Tempest
 """
+# Standard Library
+from secrets import token_urlsafe
 
 # Others
 import aiohttp_cors
 from aiohttp import web
 from aiohttp.web import Request, Response
+from db import load, save
 from elasticsearch import Elasticsearch
 
 # Types
@@ -55,12 +58,15 @@ async def search(key: str, filter_: str = "",) -> Dict[str, Any]:
     """Search function."""
     es = Elasticsearch()
     return (
-        lambda res: {
+        lambda res, db: {
             "total": res["hits"]["total"],
-            "results": list(
+            "results": db[1]
+            + list(
                 filter(
-                    lambda hit: hit.get("_source", {}).get("title", "")
-                    == filter_
+                    lambda hit: (
+                        hit.get("_id") in db[0]
+                        and hit.get("_source", {}).get("title", "") == filter_
+                    )
                     or not filter_,
                     res["hits"]["hits"],
                 )
@@ -70,11 +76,11 @@ async def search(key: str, filter_: str = "",) -> Dict[str, Any]:
         es.search(
             index="nsf4",
             body={"size": 10000, "query": {"match": {"content": key}}},
-        )
+        ),
+        await load(key),
     )
 
 
-async def get_handle(req: Request) -> Response:
 async def who(req: Request) -> Response:
     """Handle who is it."""
     c = req.cookies.get("who", token_urlsafe(16))
@@ -83,6 +89,26 @@ async def who(req: Request) -> Response:
     return res
 
 
+async def rate(req: Request) -> Response:
+    """Handle rate request."""
+    data = await req.json()
+    return web.json_response(
+        {
+            "status": (
+                await save(
+                    data.get("query", ""),
+                    data.get("ans", {}),
+                    data.get("rate", 0),
+                    req.cookies.get("who"),
+                )
+            )
+            and 0
+            or 1
+        }
+    )
+
+
+async def get_query_handle(req: Request) -> Response:
     """Handle request."""
     query = req.rel_url.query
     key = query.get("key", "")
