@@ -50,6 +50,9 @@ from aiohttp.web import Request, Response
 from db import load, save
 from elasticsearch import Elasticsearch
 
+# Config
+from config import INDEX
+
 # Types
 from typing import Any, Dict
 
@@ -74,7 +77,7 @@ async def search(key: str, filter_: str = "",) -> Dict[str, Any]:
         }
     )(
         es.search(
-            index="nsf4",
+            index=INDEX,
             body={"size": 10000, "query": {"match": {"content": key}}},
         ),
         await load(key),

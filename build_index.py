@@ -47,22 +47,16 @@ import os
 from elasticsearch import Elasticsearch, NotFoundError
 from tqdm import tqdm
 
+# Config
+from config import BASE, DOCS, INDEX
+
 # Types
 from typing import Dict, Generator, Tuple
-
-DOCS = (
-    "Pacific-Northwest-Coast-Landscape-Conservation-Design_June15-1.txt",
-    "CCLC-Targets-KEAs-Spatial-Design-Criteria-8-4-17-1.txt",
-    "WORKING LANDS AND CONSERVATION COMMUNITY MEETING_Chehalis_2Nov2018.txt",
-    "CONSERVATIONANDWORKINGLANDSCAPES_Warrentonv3_26March2019.txt",
-    "PlanningToolsAssessment2019.txt",
-)
-BASE = "../data/docs"
 
 
 def index(es: Elasticsearch, body: Dict[str, str]) -> Dict[str, str]:
     """Index `body` content."""
-    return es.index(index="nsf4", doc_type="doc", body=body)
+    return es.index(index=INDEX, doc_type="doc", body=body)
 
 
 def paragraph(
@@ -78,12 +72,12 @@ def paragraph(
 def main() -> None:
     """Main function."""
     es = Elasticsearch()
-    es.indices.exists("nsf4") and es.indices.delete("nsf4")
+    es.indices.exists(INDEX) and es.indices.delete(INDEX)
 
     for para, title in tqdm(paragraph(BASE, DOCS)):
         para and index(es, {"content": para, "title": title})
 
-    es.indices.refresh("nsf4")
+    es.indices.refresh(INDEX)
 
 
 if __name__ == "__main__":
