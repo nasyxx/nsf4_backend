@@ -75,6 +75,14 @@ async def search(key: str, filter_: str = "",) -> Dict[str, Any]:
 
 
 async def get_handle(req: Request) -> Response:
+async def who(req: Request) -> Response:
+    """Handle who is it."""
+    c = req.cookies.get("who", token_urlsafe(16))
+    res = web.Response(text="Hello, " + c)
+    res.set_cookie("who", c)
+    return res
+
+
     """Handle request."""
     query = req.rel_url.query
     key = query.get("key", "")
@@ -93,7 +101,14 @@ async def post_query_handle(req: Request) -> Response:
 
 if __name__ == "__main__":
     app = web.Application()
-    app.add_routes([web.post("/", post_handle), web.get("/q", get_handle)])
+    app.add_routes(
+        [
+            web.post("/", post_query_handle),
+            web.get("/q", get_query_handle),
+            web.get("/", who),
+            web.post("/rate", rate),
+        ]
+    )
     cors = aiohttp_cors.setup(
         app,
         defaults={
