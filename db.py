@@ -105,6 +105,10 @@ async def load(query: str) -> Tuple[Set[str], List[Dict[str, Any]]]:
         return (
             lambda d: (
                 set(d.keys()),
-                sorted(map(calc, d.values()), key=lambda q: q["rate"]),
+                sorted(
+                    map(calc, d.values()),
+                    key=lambda q: q["rate"],
+                    reverse=True,
+                ),
             )
         )(db.get(query, {}))
