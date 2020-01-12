@@ -83,7 +83,8 @@ async def save(query: str, ans: Dict[str, Any], rate: int, user: str) -> bool:
     print(f"{query, ans, user, rate=}")
     if query and ans and user and (rate > 0):
         with shelve.open(DB_PATH) as db:
-            datum = db.get(query, {ans["_id"]: []})
+            datum = db.get(query, {})
+            datum[ans["_id"]] = datum.setdefault(ans["_id"], [])
             datum[ans["_id"]].append({**ans, **{"rate": rate, "user": user}})
             db[query] = datum
         return True
