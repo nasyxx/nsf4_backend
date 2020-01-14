@@ -14,3 +14,5 @@ BASE = "../data"
 #     "PlanningToolsAssessment2019.txt",
 # )
 DOCS = ("water_quality.csv",)
+
+RETURN_SIZE = 100
