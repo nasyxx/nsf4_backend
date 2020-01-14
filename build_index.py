@@ -42,6 +42,7 @@ Which to you shall seem probable, of every
 """
 # Standard Library
 import os
+from csv import DictReader
 
 # Others
 from elasticsearch import Elasticsearch, NotFoundError
@@ -59,14 +60,23 @@ def index(es: Elasticsearch, body: Dict[str, str]) -> Dict[str, str]:
     return es.index(index=INDEX, doc_type="doc", body=body)
 
 
-def paragraph(
-    base: str, docs: Tuple[str, ...],
-) -> Generator[Tuple[str, str], None, None]:
+def nsfp() -> Generator[Tuple[str, str], None, None]:
     """Get paragraph of docs."""
-    for doc in docs:
-        with open(os.path.join(base, doc), errors="ignore") as f:
+    for doc in DOCS:
+        with open(os.path.join(BASE, doc), errors="ignore") as f:
             for para in f:
                 yield (para, os.path.basename(doc).rstrip(".txt"))
+
+
+def wq_para() -> Generator[Tuple[str, str], None, None]:
+    """Water quality para generator."""
+    for doc in DOCS:
+        with open(os.path.join(BASE, doc), errors="ignore") as f:
+            for item in DictReader(f):
+                yield item.get("Abstract", ""), item.get("Title", "")
+
+
+PARSER = {"nsf4": nsfp, "wq": wq_para}
 
 
 def main() -> None:
@@ -74,7 +84,7 @@ def main() -> None:
     es = Elasticsearch()
     es.indices.exists(INDEX) and es.indices.delete(INDEX)
 
-    for para, title in tqdm(paragraph(BASE, DOCS)):
+    for para, title in tqdm(PARSER["wq"]()):
         para and index(es, {"content": para, "title": title})
 
     es.indices.refresh(INDEX)
