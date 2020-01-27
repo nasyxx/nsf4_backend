@@ -16,3 +16,5 @@ BASE = "../data"
 DOCS = ("water_quality.csv",)
 
 RETURN_SIZE = 100
+
+COOKIE_LENGTH = 16
