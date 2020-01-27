@@ -46,29 +46,31 @@ from secrets import token_urlsafe
 
 # Others
 import aiohttp_cors
+import db
 from aiohttp import web
 from aiohttp.web import Request, Response
-from db import load, save
 from elasticsearch import Elasticsearch
 
 # Config
-from config import INDEX, RETURN_SIZE
+from config import COOKIE_LENGTH, INDEX, RETURN_SIZE
 
 # Types
 from typing import Any, Dict
 
+EMPTY = ""
 
-async def search(key: str, filter_: str = "",) -> Dict[str, Any]:
+
+async def search(key: str, filter_: str = EMPTY) -> Dict[str, Any]:
     """Search function."""
     es = Elasticsearch()
     return (
-        lambda res, db: {
+        lambda res, db_res: {
             "total": res["hits"]["total"],
-            "results": db[1]
+            "results": db_res[1]
             + list(
                 filter(
                     lambda hit: (
-                        hit.get("_id") in db[0]
+                        hit.get("_id") in db_res[0]
                         and hit.get("_source", {}).get("title", "") == filter_
                     )
                     or not filter_,
@@ -81,28 +83,28 @@ async def search(key: str, filter_: str = "",) -> Dict[str, Any]:
             index=INDEX,
             body={"size": RETURN_SIZE, "query": {"match": {"content": key}}},
         ),
-        await load(key),
+        await db.load(key),
     )
 
 
 async def who(req: Request) -> Response:
     """Handle who is it."""
-    c = req.cookies.get("who", token_urlsafe(16))
-    res = web.Response(text="Hello, " + c)
-    res.set_cookie("who", c)
+    user = req.cookies.get("who", token_urlsafe(COOKIE_LENGTH))
+    res = web.Response(text=f"Hello, {user}")
+    res.set_cookie("who", user)
     return res
 
 
 async def rate(req: Request) -> Response:
     """Handle rate request."""
-    data = await req.json()
+    rate_data = await req.json()
     return web.json_response(
         {
             "status": (
-                await save(
-                    data.get("query", ""),
-                    data.get("ans", {}),
-                    data.get("rate", 0),
+                await db.save(
+                    rate_data.get("query", EMPTY),
+                    rate_data.get("ans", {}),
+                    rate_data.get("rate", 0),
                     req.cookies.get("who"),
                 )
             )
@@ -115,17 +117,19 @@ async def rate(req: Request) -> Response:
 async def get_query_handle(req: Request) -> Response:
     """Handle request."""
     query = req.rel_url.query
-    key = query.get("key", "")
-    filter = query.get("filter", "")
+    key = query.get("key", EMPTY)
+    filter = query.get("filter", EMPTY)
     print(key)
     return web.json_response(await search(key, filter))
 
 
 async def post_query_handle(req: Request) -> Response:
     """Handle request."""
-    data = await req.json()
+    query_data = await req.json()
     return web.json_response(
-        await search(data.get("key", ""), data.get("filter", ""))
+        await search(
+            query_data.get("key", EMPTY), query_data.get("filter", EMPTY)
+        )
     )
 
 
