@@ -45,7 +45,7 @@ import os
 from csv import DictReader
 
 # Others
-from elasticsearch import Elasticsearch, NotFoundError
+from elasticsearch import Elasticsearch
 from tqdm import tqdm
 
 # Config
