@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 r"""
 Life's pathetic, have fun ("▔□▔)/hi~♡ Nasy.
 
@@ -75,28 +76,30 @@ import shelve
 from config import DB_PATH
 
 # Types
-from typing import Any, Dict, List, Set, Tuple, Union
+from typing import Any, Dict, List, Set, Tuple
+
+RATE = "rate"
 
 
 async def save(query: str, ans: Dict[str, Any], rate: int, user: str) -> bool:
     """Save the query and rate."""
-    print(f"{query, ans, user, rate=}")
     if query and ans and user and (rate > 0):
         with shelve.open(DB_PATH) as db:
             datum = db.get(query, {})
             datum[ans["_id"]] = datum.setdefault(ans["_id"], [])
-            datum[ans["_id"]].append({**ans, **{"rate": rate, "user": user}})
+            datum[ans["_id"]].append({**ans, **{RATE: rate, "user": user}})
             db[query] = datum
         return True
-    else:
-        return False
+    return False
 
 
-def calc(data: List[Dict[str, Any]]) -> Dict[str, Any]:
+def calc(res_data: List[Dict[str, Any]]) -> Dict[str, Any]:
     """Calculated score."""
     return {
-        **data[0],
-        **{"rate": sum(map(lambda d: d["rate"], data)) / len(data)},
+        **res_data[0],
+        **{
+            RATE: sum(map(lambda datum: datum[RATE], res_data)) / len(res_data)
+        },
     }
 
 
@@ -104,11 +107,11 @@ async def load(query: str) -> Tuple[Set[str], List[Dict[str, Any]]]:
     """Load saved query ans."""
     with shelve.open(DB_PATH) as db:
         return (
-            lambda d: (
-                set(d.keys()),
+            lambda query_data: (
+                set(query_data.keys()),
                 sorted(
-                    map(calc, d.values()),
-                    key=lambda q: q["rate"],
+                    map(calc, query_data.values()),
+                    key=lambda query: query[RATE],
                     reverse=True,
                 ),
             )
