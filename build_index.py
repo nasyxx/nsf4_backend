@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 r"""
 Life's pathetic, have fun ("▔□▔)/hi~♡ Nasy.
 
@@ -83,10 +84,12 @@ def wq_para() -> Generator[Tuple[str, str], None, None]:
 def main() -> None:
     """Main function."""
     es = Elasticsearch()
-    es.indices.exists(INDEX) and es.indices.delete(INDEX)
+    es.indices.exists(INDEX) and es.indices.delete(INDEX)  # noqa: WPS428
+
+    PARSER = {"nsf4": nsfp, "wq": wq_para}
 
     for para, title in tqdm(PARSER["wq"]()):
-        para and index(es, {"content": para, "title": title})
+        para and index(es, {"content": para, "title": title})  # noqa: WPS428
 
     es.indices.refresh(INDEX)
 
