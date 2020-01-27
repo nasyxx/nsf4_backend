@@ -1,0 +1,23 @@
+[flake8]
+format = "wemake"
+show-source = true
+
+ignore =
+    E133,
+    C812,
+    EXE001,
+    W503,
+    WPS221,
+    WPS305,
+    WPS332,
+    WPS430
+max-line-length = 79
+max-doc-length = 70
+select =
+    E,
+    F,
+    W,
+    C
+doctests = True
+max-complexity = 15
+exclude = config.py
