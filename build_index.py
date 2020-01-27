@@ -63,20 +63,21 @@ def index(es: Elasticsearch, body: Dict[str, str]) -> Dict[str, str]:
 def nsfp() -> Generator[Tuple[str, str], None, None]:
     """Get paragraph of docs."""
     for doc in DOCS:
-        with open(os.path.join(BASE, doc), errors="ignore") as f:
-            for para in f:
-                yield (para, os.path.basename(doc).rstrip(".txt"))
+        with open(os.path.join(BASE, doc), errors="ignore") as doc_file:
+            yield from (
+                (para, os.path.basename(doc).rstrip(".txt"))
+                for para in doc_file
+            )
 
 
 def wq_para() -> Generator[Tuple[str, str], None, None]:
     """Water quality para generator."""
     for doc in DOCS:
-        with open(os.path.join(BASE, doc), errors="ignore") as f:
-            for item in DictReader(f):
-                yield item.get("Abstract", ""), item.get("Title", "")
-
-
-PARSER = {"nsf4": nsfp, "wq": wq_para}
+        with open(os.path.join(BASE, doc), errors="ignore") as doc_file:
+            yield from (
+                (doc_item.get("Abstract", ""), doc_item.get("Title", ""))
+                for doc_item in DictReader(doc_file)
+            )
 
 
 def main() -> None:
