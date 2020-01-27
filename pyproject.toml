@@ -2,17 +2,27 @@
 name = "nsf_es_backend"
 version = "0.1.0"
 description = "nsf elasticsearch backend"
-authors = ["Nasy <nasyxx+git@gmail.com>"]
+authors = ["Nasy <nasyxx+git@gmail.com>", "dujiaxin <jd688@njit.edu>"]
 license = "MIT"
 
+packages = [
+    {include = "*.py"}
+]
+
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.6"
 tqdm = "^4.41.0"
 elasticsearch = "^7.1.0"
 aiohttp = "^3.6.2"
 aiohttp_cors = "^0.7.0"
 
 [tool.poetry.dev-dependencies]
+wemake-python-styleguide = "^0.13.4"
+
+[tool.poetry.scripts]
+nsf_index = "build_index:main"
+nsf_server = "server:main"
+
 
 [tool.black]
 line-length = 79
