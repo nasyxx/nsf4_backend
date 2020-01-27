@@ -61,3 +61,48 @@ https://www.elastic.co/guide/en/elasticsearch/reference/current/targz.html
 1. Edit the ~config.py~ file.
 2. =nsf_index=
 3. =nsf_server=
+
+* Methodology
+
+** Search
+
+1. Server receive search query
+2. Search with Elasticsearch as a
+3. Load local rating db as b
+4. Combine them b + a
+5. Response to user
+
+** Save Rate
+
+1. Server receive rate query
+2. Save it
+3. Response success of not
+
+** Load Rate
+
+1. Load all local rate from search query
+2. response rated data with average rate
+
+* Dev
+
+** Search Response
+
+At ~server.py~, the search function: https://github.com/nasyxx/nsf4_backend/blob/master/server.py#L63-L87.
+
+First part of it is ~res~ from Elasticsearch response.  We now in this function
+only use the ~res["hits"]["total"]~ and the ~res["hits"]["hits"]~.
+
+Second part is ~db_res~ from local rated db.  The structure of it is not the same
+as ~res~.  It has an additional dict -- rate.
+
+The ~filter~ function receive a hit and response True of False.  Default of it is
+filter title to avoid duplicates with db response and user selected title.  This
+response is a dict.  You can easily increase or decrease content by using a
+middleware.  You can wrap it.
+
+** Rate
+
+At ~server.py~, the rate function:
+https://github.com/nasyxx/nsf4_backend/blob/master/server.py#L98-L114.
+
+If success, then response 0, otherwise response 1.
