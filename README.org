@@ -1,0 +1,63 @@
+#+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline author:t
+#+options: broken-links:mark c:nil creator:nil d:(not "LOGBOOK") date:t e:t
+#+options: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
+#+options: tasks:t tex:t timestamp:t title:t toc:t todo:t |:t
+#+title: README
+#+date: <2020-01-21 Tue>
+#+author: Nasy
+#+email: nasyxx@gmail.com
+#+language: en
+#+select_tags: export
+#+exclude_tags: noexport
+#+creator: Emacs 26.3 (Org mode fatal: No names found, cannot describe anything.)
+
+
+- address :: https://github.com/nasyxx/nsf4_backend
+- frontend :: https://github.com/nasyxx/nsf4_frontend
+
+* TL;DR
+
+Backend of /Q & A/, including indexing and web server.
+
+* Install
+
+** TL;DR
+
+- Python 3.6+
+    + tqdm
+    + elasticsearch
+    + aiohttp
+    + aiohttp_cors
+- Elasticsearch 6.8+
+
+** Python
+
+#+begin_src sh
+  python -m pip install .
+#+end_src
+
+** Elasticsearch
+
+https://www.elastic.co/guide/en/elasticsearch/reference/current/targz.html
+
+*** Linux
+
+#+begin_src sh
+  wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.5.2-linux-x86_64.tar.gz
+  wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.5.2-linux-x86_64.tar.gz.sha512
+  shasum -a 512 -c elasticsearch-7.5.2-linux-x86_64.tar.gz.sha512
+  tar -xzf elasticsearch-7.5.2-linux-x86_64.tar.gz
+  cd elasticsearch-7.5.2/  # here is the $ES_HOME
+#+end_src
+
+*** MacOS
+
+#+begin_src sh
+  brew install elasticsearch
+#+end_src
+
+* Run
+
+1. Edit the ~config.py~ file.
+2. =nsf_index=
+3. =nsf_server=
