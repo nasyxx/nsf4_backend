@@ -129,7 +129,8 @@ async def post_query_handle(req: Request) -> Response:
     )
 
 
-if __name__ == "__main__":
+def main() -> None:
+    """Main function."""
     app = web.Application()
     app.add_routes(
         [
@@ -150,3 +151,7 @@ if __name__ == "__main__":
     for route in app.router.routes():
         cors.add(route)
     web.run_app(app)
+
+
+if __name__ == "__main__":
+    main()
