@@ -15,6 +15,7 @@ tqdm = "^4.41.0"
 elasticsearch = "^7.1.0"
 aiohttp = "^3.6.2"
 aiohttp_cors = "^0.7.0"
+tika = "^1.23"
 
 [tool.poetry.dev-dependencies]
 wemake-python-styleguide = "^0.13.4"
