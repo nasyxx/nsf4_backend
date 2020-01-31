@@ -47,13 +47,16 @@ from csv import DictReader
 
 # Others
 from elasticsearch import Elasticsearch
+from tika import parser
 from tqdm import tqdm
 
 # Config
-from config import BASE, DOCS, INDEX
+from config import DOCS, FD, INDEX, Paths
 
 # Types
-from typing import Dict, Generator, Tuple
+from typing import Dict, Generator, Set, Tuple
+
+DONE = set()  # type: Set[Tuple[str, str]]
 
 
 def index(es: Elasticsearch, body: Dict[str, str]) -> Dict[str, str]:
@@ -61,24 +64,54 @@ def index(es: Elasticsearch, body: Dict[str, str]) -> Dict[str, str]:
     return es.index(index=INDEX, doc_type="doc", body=body)
 
 
-def nsfp() -> Generator[Tuple[str, str], None, None]:
-    """Get paragraph of docs."""
-    for doc in DOCS:
-        with open(os.path.join(BASE, doc), errors="ignore") as doc_file:
+def walk(paths: FD) -> Generator[str, None, None]:
+    """Walk though dir."""
+    yield from map(lambda path: path.as_posix(), paths.f)
+    for dir_path in paths.d:
+        for (dirpath, dirnames, filenames) in os.walk(dir_path):
             yield from (
-                (para, os.path.basename(doc).rstrip(".txt"))
-                for para in doc_file
+                os.sep.join([dirpath, filename]) for filename in filenames
             )
 
 
-def wq_para() -> Generator[Tuple[str, str], None, None]:
+def wq_para(docs: Paths) -> Generator[Tuple[str, str], None, None]:
     """Water quality para generator."""
-    for doc in DOCS:
-        with open(os.path.join(BASE, doc), errors="ignore") as doc_file:
+    for doc in docs:
+        print(f"\n{doc}")
+        with open(doc, errors="ignore") as doc_file:
             yield from (
                 (doc_item.get("Abstract", ""), doc_item.get("Title", ""))
                 for doc_item in DictReader(doc_file)
             )
+
+
+def all_para(docs: FD) -> Generator[Tuple[str, str], None, None]:
+    """All para generator with tika."""
+    for doc in filter(
+        lambda path: path.endswith(".docx")
+        or path.endswith(".txt")
+        or path.endswith(".pdf"),
+        walk(docs),
+    ):
+        print(f"\n{doc}")
+        yield from (
+            (
+                para,
+                os.path.basename(doc)
+                .rstrip(".docx")
+                .rstrip(".txt")
+                .rstrip(".pdf"),
+            )
+            for para in str(
+                parser.from_file(doc).get("content", "")
+            ).splitlines()
+        )
+
+
+def read_docs() -> Generator[Tuple[str, str], None, None]:
+    """Read all docs as single paragraph."""
+    yield from all_para(DOCS.normal)
+    yield from wq_para(DOCS.csv.f)
 
 
 def main() -> None:
@@ -86,10 +119,14 @@ def main() -> None:
     es = Elasticsearch()
     es.indices.exists(INDEX) and es.indices.delete(INDEX)  # noqa: WPS428
 
-    PARSER = {"nsf4": nsfp, "wq": wq_para}
-
-    for para, title in tqdm(PARSER["wq"]()):
-        para and index(es, {"content": para, "title": title})  # noqa: WPS428
+    for para, title in tqdm(
+        read_docs(), desc="Elasticsearch Index", unit="paragraph"
+    ):
+        if (para, title) not in DONE:
+            para and index(  # noqa: WPS428
+                es, {"content": para, "title": title}
+            )
+        DONE.add((para, title))
 
     es.indices.refresh(INDEX)
 
