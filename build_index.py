@@ -74,9 +74,9 @@ def walk(paths: FD) -> Generator[str, None, None]:
             )
 
 
-def wq_para(docs: Paths) -> Generator[Tuple[str, str], None, None]:
+def wq_para(docs: FD) -> Generator[Tuple[str, str], None, None]:
     """Water quality para generator."""
-    for doc in docs:
+    for doc in filter(lambda path: path.endswith(".csv"), walk(docs)):
         print(f"\n{doc}", end="", file=tqdm)
         with open(doc, errors="ignore") as doc_file:
             yield from (
@@ -111,7 +111,7 @@ def all_para(docs: FD) -> Generator[Tuple[str, str], None, None]:
 def read_docs() -> Generator[Tuple[str, str], None, None]:
     """Read all docs as single paragraph."""
     yield from all_para(DOCS.normal)
-    yield from wq_para(DOCS.csv.f)
+    yield from wq_para(DOCS.csv)
 
 
 def main() -> None:
