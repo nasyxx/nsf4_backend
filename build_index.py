@@ -77,7 +77,7 @@ def walk(paths: FD) -> Generator[str, None, None]:
 def wq_para(docs: Paths) -> Generator[Tuple[str, str], None, None]:
     """Water quality para generator."""
     for doc in docs:
-        print(f"\n{doc}")
+        print(f"\n{doc}", end="", file=tqdm)
         with open(doc, errors="ignore") as doc_file:
             yield from (
                 (doc_item.get("Abstract", ""), doc_item.get("Title", ""))
@@ -93,7 +93,7 @@ def all_para(docs: FD) -> Generator[Tuple[str, str], None, None]:
         or path.endswith(".pdf"),
         walk(docs),
     ):
-        print(f"\n{doc}")
+        print(f"{doc}", end="", file=tqdm)
         yield from (
             (
                 para,
@@ -120,7 +120,10 @@ def main() -> None:
     es.indices.exists(INDEX) and es.indices.delete(INDEX)  # noqa: WPS428
 
     for para, title in tqdm(
-        read_docs(), desc="Elasticsearch Index", unit="paragraph"
+        read_docs(),
+        desc="Elasticsearch Index",
+        unit="paragraph",
+        total=1603143,
     ):
         if (para, title) not in DONE:
             para and index(  # noqa: WPS428
