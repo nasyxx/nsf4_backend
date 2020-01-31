@@ -10,6 +10,7 @@ ignore =
     WPS221,
     WPS305,
     WPS332,
+    WPS352,
     WPS430
 max-line-length = 79
 max-doc-length = 70
@@ -20,4 +21,3 @@ select =
     C
 doctests = True
 max-complexity = 15
-exclude = config.py
