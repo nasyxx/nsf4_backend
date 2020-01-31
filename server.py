@@ -42,6 +42,7 @@ Which to you shall seem probable, of every
                           -- The Tempest
 """
 # Standard Library
+import sys
 from secrets import token_urlsafe
 
 # Others
@@ -50,6 +51,7 @@ import db
 from aiohttp import web
 from aiohttp.web import Request, Response
 from elasticsearch import Elasticsearch
+from loguru import logger
 
 # Config
 from config import COOKIE_LENGTH, INDEX, RETURN_SIZE
@@ -58,6 +60,14 @@ from config import COOKIE_LENGTH, INDEX, RETURN_SIZE
 from typing import Any, Dict
 
 EMPTY = ""
+
+logger.remove()
+logger.add(
+    sys.stdout,
+    colorize=True,
+    format="<green>{time}</green>\t<level>{message}</level>",
+)
+logger.add("logs", format="{time}\t{message}")
 
 
 async def search(key: str, filter_: str = EMPTY) -> Dict[str, Any]:
@@ -98,6 +108,10 @@ async def who(req: Request) -> Response:
 async def rate(req: Request) -> Response:
     """Handle rate request."""
     rate_data = await req.json()
+    logger.info(
+        f"{req.cookies.get('who', 'Unknow User')}\trate\t"
+        f"|{rate_data.get('query', EMPTY)}|\t{rate_data.get('rate', 0)}",
+    )
     return web.json_response(
         {
             "status": (
@@ -119,7 +133,9 @@ async def get_query_handle(req: Request) -> Response:
     query = req.rel_url.query
     key = query.get("key", EMPTY)
     filter = query.get("filter", EMPTY)
-    print(key)
+    logger.info(
+        f"{req.cookies.get('who', 'Unknow User')}\tsearch\t|{key}|\t{filter}",
+    )
     return web.json_response(await search(key, filter))
 
 
