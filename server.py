@@ -60,6 +60,7 @@ from config import COOKIE_LENGTH, INDEX, RETURN_SIZE
 from typing import Any, Dict
 
 EMPTY = ""
+COOKIEN = "who"
 
 logger.remove()
 logger.add(
@@ -99,9 +100,9 @@ async def search(key: str, filter_: str = EMPTY) -> Dict[str, Any]:
 
 async def who(req: Request) -> Response:
     """Handle who is it."""
-    user = req.cookies.get("who", token_urlsafe(COOKIE_LENGTH))
+    user = req.cookies.get(COOKIEN, token_urlsafe(COOKIE_LENGTH))
     res = web.Response(text=f"Hello, {user}")
-    res.set_cookie("who", user)
+    res.set_cookie(COOKIEN, user)
     return res
 
 
@@ -119,7 +120,7 @@ async def rate(req: Request) -> Response:
                     rate_data.get("query", EMPTY),
                     rate_data.get("ans", {}),
                     rate_data.get("rate", 0),
-                    req.cookies.get("who"),
+                    req.cookies.get(COOKIEN),
                 )
             )
             and 0
@@ -134,7 +135,7 @@ async def get_query_handle(req: Request) -> Response:
     key = query.get("key", EMPTY)
     filter = query.get("filter", EMPTY)
     logger.info(
-        f"{req.cookies.get('who', 'Unknow User')}\tsearch\t|{key}|\t{filter}",
+        f"{req.cookies.get(COOKIEN, 'Unknow User')}\tsearch\t|{key}|\t{filter}"
     )
     return web.json_response(await search(key, filter))
 

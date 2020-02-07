@@ -51,12 +51,13 @@ from tika import parser
 from tqdm import tqdm
 
 # Config
-from config import DOCS, FD, INDEX, Paths
+from config import DOCS, FD, INDEX
 
 # Types
 from typing import Dict, Generator, Set, Tuple
 
 DONE = set()  # type: Set[Tuple[str, str]]
+EMPTY = ""
 
 
 def index(es: Elasticsearch, body: Dict[str, str]) -> Dict[str, str]:
@@ -80,7 +81,7 @@ def wq_para(docs: FD) -> Generator[Tuple[str, str], None, None]:
         print(f"\n{doc}", end="", file=tqdm)
         with open(doc, errors="ignore") as doc_file:
             yield from (
-                (doc_item.get("Abstract", ""), doc_item.get("Title", ""))
+                (doc_item.get("Abstract", EMPTY), doc_item.get("Title", EMPTY))
                 for doc_item in DictReader(doc_file)
             )
 
@@ -103,7 +104,7 @@ def all_para(docs: FD) -> Generator[Tuple[str, str], None, None]:
                 .rstrip(".pdf"),
             )
             for para in str(
-                parser.from_file(doc).get("content", "")
+                parser.from_file(doc).get("content", EMPTY)
             ).splitlines()
         )
 
@@ -123,7 +124,7 @@ def main() -> None:
         read_docs(),
         desc="Elasticsearch Index",
         unit="paragraph",
-        total=1603143,
+        total=1603143,  # noqa: WPS432
     ):
         if (para, title) not in DONE:
             para and index(  # noqa: WPS428

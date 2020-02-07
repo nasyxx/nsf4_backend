@@ -9,9 +9,13 @@ ignore =
     W503,
     WPS221,
     WPS305,
+    WPS326,
     WPS332,
+    WPS348,
     WPS352,
     WPS430
+per-file-ignores =
+    config.py:E800
 max-line-length = 79
 max-doc-length = 70
 select =
