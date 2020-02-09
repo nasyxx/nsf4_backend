@@ -54,7 +54,7 @@ from elasticsearch import Elasticsearch
 from loguru import logger
 
 # Config
-from config import COOKIE_LENGTH, INDEX, RETURN_SIZE
+from config import COOKIE_LENGTH, INDEX, RETURN_SIZE, STOPWORDS
 
 # Types
 from typing import Any, Dict
@@ -133,11 +133,19 @@ async def get_query_handle(req: Request) -> Response:
     """Handle request."""
     query = req.rel_url.query
     key = query.get("key", EMPTY)
-    filter = query.get("filter", EMPTY)
+    no_stop_words = query.get("nsw")
+    filter_text = query.get("filter", EMPTY)
     logger.info(
         f"{req.cookies.get(COOKIEN, 'Unknow User')}\tsearch\t|{key}|\t{filter}"
     )
-    return web.json_response(await search(key, filter))
+    return web.json_response(
+        await search(
+            " ".join(filter(lambda word: word not in STOPWORDS, key.split()))
+            if no_stop_words
+            else key,
+            filter_text,
+        )
+    )
 
 
 async def post_query_handle(req: Request) -> Response:

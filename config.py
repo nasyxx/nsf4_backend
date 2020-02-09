@@ -52,6 +52,8 @@ Paths = Iterable[Path]
 FD = NamedTuple("FD", [("f", Paths), ("d", Paths)])
 Docs = NamedTuple("Docs", [("normal", FD), ("csv", FD)])
 
+with open("stopwords") as f:
+    STOPWORDS = set(f.read().splitlines())
 
 # Editable below:
 
