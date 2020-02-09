@@ -44,6 +44,7 @@ Which to you shall seem probable, of every
 # Standard Library
 import os
 from csv import DictReader
+from pathlib import Path
 
 # Others
 from elasticsearch import Elasticsearch
@@ -51,11 +52,12 @@ from tika import parser
 from tqdm import tqdm
 
 # Config
-from config import DOCS, FD, INDEX
+from config import BASE, DOCS, FD, INDEX
 
 # Types
 from typing import Dict, Generator, Set, Tuple
 
+Doc = Tuple[str, str, str]
 DONE = set()  # type: Set[Tuple[str, str]]
 EMPTY = ""
 
@@ -75,18 +77,22 @@ def walk(paths: FD) -> Generator[str, None, None]:
             )
 
 
-def wq_para(docs: FD) -> Generator[Tuple[str, str], None, None]:
+def wq_para(docs: FD) -> Generator[Doc, None, None]:
     """Water quality para generator."""
     for doc in filter(lambda path: path.endswith(".csv"), walk(docs)):
         print(f"\n{doc}", end="", file=tqdm)
         with open(doc, errors="ignore") as doc_file:
             yield from (
-                (doc_item.get("Abstract", EMPTY), doc_item.get("Title", EMPTY))
+                (
+                    doc_item.get("Abstract", EMPTY),
+                    doc_item.get("Title", EMPTY),
+                    Path(doc).relative_to(BASE).as_posix(),
+                )
                 for doc_item in DictReader(doc_file)
             )
 
 
-def all_para(docs: FD) -> Generator[Tuple[str, str], None, None]:
+def all_para(docs: FD) -> Generator[Doc, None, None]:
     """All para generator with tika."""
     for doc in filter(
         lambda path: path.endswith(".docx")
@@ -102,6 +108,7 @@ def all_para(docs: FD) -> Generator[Tuple[str, str], None, None]:
                 .rstrip(".docx")
                 .rstrip(".txt")
                 .rstrip(".pdf"),
+                Path(doc).relative_to(BASE).as_posix(),
             )
             for para in str(
                 parser.from_file(doc).get("content", EMPTY)
@@ -109,7 +116,7 @@ def all_para(docs: FD) -> Generator[Tuple[str, str], None, None]:
         )
 
 
-def read_docs() -> Generator[Tuple[str, str], None, None]:
+def read_docs() -> Generator[Doc, None, None]:
     """Read all docs as single paragraph."""
     yield from all_para(DOCS.normal)
     yield from wq_para(DOCS.csv)
@@ -120,7 +127,7 @@ def main() -> None:
     es = Elasticsearch()
     es.indices.exists(INDEX) and es.indices.delete(INDEX)  # noqa: WPS428
 
-    for para, title in tqdm(
+    for para, title, path in tqdm(
         read_docs(),
         desc="Elasticsearch Index",
         unit="paragraph",
@@ -128,7 +135,7 @@ def main() -> None:
     ):
         if (para, title) not in DONE:
             para and index(  # noqa: WPS428
-                es, {"content": para, "title": title}
+                es, {"content": para, "title": title, "path": path}
             )
         DONE.add((para, title))
 
