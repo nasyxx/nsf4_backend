@@ -136,7 +136,8 @@ async def get_query_handle(req: Request) -> Response:
     no_stop_words = query.get("nsw")
     filter_text = query.get("filter", EMPTY)
     logger.info(
-        f"{req.cookies.get(COOKIEN, 'Unknow User')}\tsearch\t|{key}|\t{filter}"
+        f"{req.cookies.get(COOKIEN, 'Unknow User')}"
+        f"\tsearch\t|{key}|\t{filter_text}"
     )
     return web.json_response(
         await search(
