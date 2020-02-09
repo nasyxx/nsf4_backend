@@ -140,7 +140,9 @@ async def get_query_handle(req: Request) -> Response:
     )
     return web.json_response(
         await search(
-            " ".join(filter(lambda word: word not in STOPWORDS, key.split()))
+            " ".join(
+                filter(lambda word: word.lower() not in STOPWORDS, key.split())
+            )
             if no_stop_words
             else key,
             filter_text,
