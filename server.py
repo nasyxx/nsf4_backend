@@ -133,7 +133,7 @@ async def get_query_handle(req: Request) -> Response:
     """Handle request."""
     query = req.rel_url.query
     key = query.get("key", EMPTY)
-    no_stop_words = query.get("nsw")
+    no_stop_words = query.get("nsw", "false")
     filter_text = query.get("filter", EMPTY)
     logger.info(
         f"{req.cookies.get(COOKIEN, 'Unknow User')}"
@@ -144,7 +144,7 @@ async def get_query_handle(req: Request) -> Response:
             " ".join(
                 filter(lambda word: word.lower() not in STOPWORDS, key.split())
             )
-            if no_stop_words
+            if no_stop_words == "true"
             else key,
             filter_text,
         )
