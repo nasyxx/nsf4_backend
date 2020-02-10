@@ -136,7 +136,7 @@ async def get_query_handle(req: Request) -> Response:
     filter_text = query.get("filter", EMPTY)
     key = (
         lambda kw: " ".join(
-            filter(lambda word: word.lower() not in STOPWORDS, key.split())
+            filter(lambda word: word.lower() not in STOPWORDS, kw.split())
         )
         if no_stop_words == "true"
         else kw
