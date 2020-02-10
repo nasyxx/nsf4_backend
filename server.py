@@ -132,23 +132,20 @@ async def rate(req: Request) -> Response:
 async def get_query_handle(req: Request) -> Response:
     """Handle request."""
     query = req.rel_url.query
-    key = query.get("key", EMPTY)
     no_stop_words = query.get("nsw", "false")
     filter_text = query.get("filter", EMPTY)
+    key = (
+        lambda kw: " ".join(
+            filter(lambda word: word.lower() not in STOPWORDS, key.split())
+        )
+        if no_stop_words == "true"
+        else kw
+    )(query.get("key", EMPTY))
     logger.info(
         f"{req.cookies.get(COOKIEN, 'Unknow User')}"
         f"\tsearch\t|{key}|\t{filter_text}"
     )
-    return web.json_response(
-        await search(
-            " ".join(
-                filter(lambda word: word.lower() not in STOPWORDS, key.split())
-            )
-            if no_stop_words == "true"
-            else key,
-            filter_text,
-        )
-    )
+    return web.json_response(await search(key, filter_text))
 
 
 async def post_query_handle(req: Request) -> Response:
