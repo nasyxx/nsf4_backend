@@ -88,6 +88,7 @@ async def search(key: str, filter_: str = EMPTY) -> Dict[str, Any]:
                     res["hits"]["hits"],
                 )
             ),
+            "query": key,
         }
     )(
         es.search(
