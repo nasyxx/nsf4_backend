@@ -52,6 +52,8 @@ from aiohttp import web
 from aiohttp.web import Request, Response
 from elasticsearch import Elasticsearch
 from loguru import logger
+from owl import person_to_dict
+from owl import query as owl_query
 
 # Config
 from config import COOKIE_LENGTH, INDEX, RETURN_SIZE, STOPWORDS
@@ -149,6 +151,15 @@ async def get_query_handle(req: Request) -> Response:
     return web.json_response(await search(key, filter_text))
 
 
+async def get_person_query_handle(req: Request) -> Response:
+    """Handle person query."""
+    key = req.rel_url.query.get("key", EMPTY)
+    logger.info(
+        f"{req.cookies.get(COOKIEN, 'Unknow User')}" f"\tsearch_person\t|{key}"
+    )
+    return web.json_response(list(map(person_to_dict, owl_query(key))))
+
+
 async def post_query_handle(req: Request) -> Response:
     """Handle request."""
     query_data = await req.json()
@@ -166,6 +177,7 @@ def main() -> None:
         [
             web.post("/", post_query_handle),
             web.get("/q", get_query_handle),
+            web.get("/pq", get_person_query_handle),
             web.get("/", who),
             web.post("/rate", rate),
         ]
