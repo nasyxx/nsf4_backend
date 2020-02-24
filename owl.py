@@ -150,7 +150,14 @@ def person_cache() -> Dict[str, Set[Person]]:
                         lambda person: Person(
                             str(person.get("firstname", EMPTYS)),
                             str(person.get("lastname", EMPTYS)),
-                            str(person.get("job_title", EMPTYS)),
+                            re.sub(  # handle
+                                # Scientist-Ecosystem or
+                                # ScientistEcosystem to
+                                r".*#([^-]*).*?([A-Z])",
+                                #  Scientist Ecosystem
+                                r"\1 \2",
+                                str(person.get("job_title", EMPTYS)),
+                            ).strip(),
                             str(person.get("homepage", EMPTYS)),
                             build_project_organization().get(
                                 person.get("works_at"), PO(EMPTYS, EMPTYS),
