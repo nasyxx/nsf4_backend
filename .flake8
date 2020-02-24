@@ -13,7 +13,8 @@ ignore =
     WPS332,
     WPS348,
     WPS352,
-    WPS430
+    WPS430,
+    WPS437
 per-file-ignores =
     config.py:E800
 max-line-length = 79
