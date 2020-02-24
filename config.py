@@ -65,6 +65,8 @@ INDEX = "all"
 
 BASE = Path("../data")
 
+OWLF = BASE / "WQOntology_forQA.owl"
+
 DOCS = Docs(
     normal=FD(
         f=map(
