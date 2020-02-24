@@ -55,7 +55,7 @@ from config import OWLF
 # Types
 from typing import Dict, List, NamedTuple, Optional, Set, Union
 
-CACHE_SIZE = 0  # 2 << 16  # noqa: WPS432
+CACHE_SIZE = 2 << 16  # noqa: WPS432
 EMPTYS = ""
 G = Graph().parse(OWLF.as_posix(), format="n3")  # noqa: WPS111
 
