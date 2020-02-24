@@ -17,6 +17,7 @@ aiohttp = "^3.6.2"
 aiohttp_cors = "^0.7.0"
 tika = "^1.23"
 loguru = "^0.4.1"
+rdflib = "^4.2.2"
 
 [tool.poetry.dev-dependencies]
 wemake-python-styleguide = "^0.13.4"
