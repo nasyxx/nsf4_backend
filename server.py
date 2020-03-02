@@ -63,6 +63,8 @@ from typing import Any, Dict
 
 EMPTY = ""
 COOKIEN = "who"
+Qry = "query"
+Key = "key"
 
 logger.remove()
 logger.add(
@@ -90,12 +92,12 @@ async def search(key: str, o_key: str, filter_: str = EMPTY) -> Dict[str, Any]:
                     res["hits"]["hits"],
                 )
             ),
-            "query": key,
+            Qry: key,
         }
     )(
         es.search(
             index=INDEX,
-            body={"size": RETURN_SIZE, "query": {"match": {"content": key}}},
+            body={"size": RETURN_SIZE, Qry: {"match": {"content": key}}},
         ),
         await db.load(o_key),
     )
@@ -120,7 +122,7 @@ async def rate(req: Request) -> Response:
         {
             "status": (
                 await db.save(
-                    rate_data.get("query", EMPTY),
+                    rate_data.get(Qry, EMPTY),
                     rate_data.get("ans", {}),
                     rate_data.get("rate", 0),
                     req.cookies.get(COOKIEN),
@@ -143,19 +145,19 @@ async def get_query_handle(req: Request) -> Response:
         )
         if no_stop_words == "true"
         else kw
-    )(query.get("key", EMPTY))
+    )(query.get(Key, EMPTY))
     logger.info(
         f"{req.cookies.get(COOKIEN, 'Unknow User')}"
         f"\tsearch\t|{key}|\t{filter_text}"
     )
     return web.json_response(
-        await search(key, query.get("key", EMPTY), filter_text)
+        await search(key, query.get(Key, EMPTY), filter_text)
     )
 
 
 async def get_person_query_handle(req: Request) -> Response:
     """Handle person query."""
-    key = req.rel_url.query.get("key", EMPTY)
+    key = req.rel_url.query.get(Key, EMPTY)
     logger.info(
         f"{req.cookies.get(COOKIEN, 'Unknow User')}" f"\tsearch_person\t|{key}"
     )
@@ -167,7 +169,7 @@ async def post_query_handle(req: Request) -> Response:
     query_data = await req.json()
     return web.json_response(
         await search(
-            query_data.get("key", EMPTY), query_data.get("filter", EMPTY)
+            query_data.get(Key, EMPTY), query_data.get("filter", EMPTY)
         )
     )
 
