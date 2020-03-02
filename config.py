@@ -65,7 +65,7 @@ INDEX = "all"
 
 BASE = Path("../data")
 
-OWLF = BASE / "SDS-OKN_20200301_CleanOntology_InstanceTurtle.owl"
+OWLF = BASE / "SDS-OKN_20200301_CleanOntology_InstanceTurtle_PJM_3PM.owl"
 
 DOCS = Docs(
     normal=FD(
