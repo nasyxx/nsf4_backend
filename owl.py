@@ -227,18 +227,43 @@ def filtered(qid: str) -> Generator[Person, None, None]:
 
 
 @lru_cache(maxsize=CACHE_SIZE)
+def query_by_ntktext(text: str) -> Set[str]:
+    """Query by ntk Text."""
+    return set(
+        map(
+            lambda ans: str(ans.asdict().get(PID, EMPTYS)),
+            G.query(
+                "select distinct ?qid where {"
+                # Find the query text id as `qid`.
+                f'?qid ?ntkqc "{text}"^^xsd:string'
+                "}"
+            ),
+        )
+    )
+
+
+@lru_cache(maxsize=CACHE_SIZE)
+def query_by_address(qid: str) -> Set[str]:
+    """Querry by ntkq address to."""
+    return set(
+        map(
+            lambda ans: str(ans.asdict().get(PID, EMPTYS)),
+            G.query("select ?qid where {" f"?qid sdso:addresses <{qid}>" "}"),
+        )
+    )
+
+
+@lru_cache(maxsize=CACHE_SIZE)
 def query(query_str: str) -> Set[Person]:
     """Query owl graph."""
     return set(
-        chain(
-            *map(
-                lambda ans: filtered(str(ans.asdict().get("qid", ""))),
-                G.query(
-                    "select ?qid where { "
-                    # Find the query text id as `qid`.
-                    f'?qid ?ntkqc "{query_str}"^^xsd:string'
-                    "}"
-                ),
-            ),
+        chain.from_iterable(
+            map(
+                filtered,
+                (
+                    lambda ans: ans
+                    | set(chain.from_iterable(map(query_by_address, ans)))
+                )(query_by_ntktext(query_str)),
+            )
         )
     )
