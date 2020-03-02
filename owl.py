@@ -230,13 +230,15 @@ def filtered(qid: str) -> Generator[Person, None, None]:
 def query(query_str: str) -> Set[Person]:
     """Query owl graph."""
     return set(
-        *map(
-            lambda ans: filtered(str(ans.asdict().get("qid", ""))),
-            G.query(
-                "select ?qid where { "
-                # Find the query text id as `qid`.
-                f'?qid sdso:ntkText "{query_str}"^^xsd:string . '
-                "}"
+        chain(
+            *map(
+                lambda ans: filtered(str(ans.asdict().get("qid", ""))),
+                G.query(
+                    "select ?qid where { "
+                    # Find the query text id as `qid`.
+                    f'?qid ?ntkqc "{query_str}"^^xsd:string'
+                    "}"
+                ),
             ),
-        ),
+        )
     )
