@@ -53,7 +53,7 @@ from rdflib import Graph, Literal, URIRef
 from config import OWLF
 
 # Types
-from typing import Dict, List, NamedTuple, Optional, Set, Union
+from typing import Dict, List, NamedTuple, Set, Union
 
 CACHE_SIZE = 2 << 16  # noqa: WPS432
 EMPTYS = ""
@@ -68,8 +68,8 @@ Person = NamedTuple(
         ("lastname", str),
         ("job_title", str),
         ("homepage", str),
-        ("works_at", Optional[PO]),
-        ("works_on", Optional[PO]),
+        ("works_at", PO),
+        ("works_on", PO),
     ],
 )
 

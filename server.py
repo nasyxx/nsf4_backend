@@ -73,7 +73,7 @@ logger.add(
 logger.add("logs", format="{time}\t{message}")
 
 
-async def search(key: str, filter_: str = EMPTY) -> Dict[str, Any]:
+async def search(key: str, o_key: str, filter_: str = EMPTY) -> Dict[str, Any]:
     """Search function."""
     es = Elasticsearch()
     return (
@@ -97,7 +97,7 @@ async def search(key: str, filter_: str = EMPTY) -> Dict[str, Any]:
             index=INDEX,
             body={"size": RETURN_SIZE, "query": {"match": {"content": key}}},
         ),
-        await db.load(key),
+        await db.load(o_key),
     )
 
 
@@ -148,7 +148,9 @@ async def get_query_handle(req: Request) -> Response:
         f"{req.cookies.get(COOKIEN, 'Unknow User')}"
         f"\tsearch\t|{key}|\t{filter_text}"
     )
-    return web.json_response(await search(key, filter_text))
+    return web.json_response(
+        await search(key, query.get("key", EMPTY), filter_text)
+    )
 
 
 async def get_person_query_handle(req: Request) -> Response:
