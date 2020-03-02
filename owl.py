@@ -58,6 +58,7 @@ from typing import Dict, Generator, NamedTuple, Set, Union
 CACHE_SIZE = 2 << 16  # noqa: WPS432
 EMPTYS = ""
 PID = "pid"
+QID = "qid"
 G = Graph().parse(OWLF.as_posix(), format="n3")  # noqa: WPS111
 
 PO = NamedTuple(
@@ -233,9 +234,9 @@ def query_by_ntktext(text: str) -> Set[str]:
         map(
             lambda ans: str(ans.asdict().get(PID, EMPTYS)),
             G.query(
-                "select distinct ?qid where {"
+                "select ?pid where {"
                 # Find the query text id as `qid`.
-                f'?qid ?ntkqc "{text}"^^xsd:string'
+                f'?pid ?ntkqc "{text}"^^xsd:string'
                 "}"
             ),
         )
@@ -248,7 +249,7 @@ def query_by_address(qid: str) -> Set[str]:
     return set(
         map(
             lambda ans: str(ans.asdict().get(PID, EMPTYS)),
-            G.query("select ?qid where {" f"?qid sdso:addresses <{qid}>" "}"),
+            G.query("select ?pid where {" f"?pid sdso:addresses <{qid}>" "}"),
         )
     )
 
