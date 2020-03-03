@@ -1,6 +1,6 @@
 #+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline author:t
 #+options: broken-links:mark c:nil creator:nil d:(not "LOGBOOK") date:t e:t
-#+options: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
+#+options: email:nil f:t inline:t num:nil p:nil pri:nil prop:nil stat:t tags:t
 #+options: tasks:t tex:t timestamp:t title:t toc:t todo:t |:t
 #+title: README
 #+date: <2020-01-21 Tue>
@@ -62,6 +62,1211 @@ https://www.elastic.co/guide/en/elasticsearch/reference/current/targz.html
 2. =nsf_index=
 3. =nsf_server=
 
+* APIS
+
+** search query
+
+*** api
+
+#+begin_src restclient
+  # default nsw = true
+  GET /q?key=search text&nsw=bool
+#+end_src
+
+*** example
+
+#+begin_src restclient
+  GET http://localhost:8080/q?key=How can financial incentives be developed that bring new partnerships and creative approaches to reduce water quality impacts and improve treatment?&nsw=true
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "total": 352781,
+  "results": [
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "8UyKK3ABvO_gzP0saIla",
+      "_score": 86.24884,
+      "_source": {
+        "content": "\tHow can financial incentives be developed that bring new partnerships and creative approaches to reduce water quality impacts and improve treatment?",
+        "title": "WQIntv10010 Nov 21 2019 Daryl Williams Tulalip Tribes",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_WaterQuality/Task 1 Info Needs Assessment/_Interviewees_temp_private/WQIntv10010 Nov 21 2019 Daryl Williams Tulalip Tribes.docx"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "8EyKK3ABvO_gzP0saIlZ",
+      "_score": 37.971733,
+      "_source": {
+        "content": "Financial incentives, new partnerships",
+        "title": "WQIntv10010 Nov 21 2019 Daryl Williams Tulalip Tribes",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_WaterQuality/Task 1 Info Needs Assessment/_Interviewees_temp_private/WQIntv10010 Nov 21 2019 Daryl Williams Tulalip Tribes.docx"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "HFKUK3ABvO_gzP0sMNkn",
+      "_score": 25.308544,
+      "_source": {
+        "content": "Environmental policies have brought dramatic improvements in air and water quality during the past 25 years, but further expansion of command-and-control regulations is likely to have diminishing marginal returns. Corporations are taking new initiatives in managing their environmental impacts in ways that reduce their costs, increase their efficiency, lower their liabilities, and enhance their competitiveness while reducing pollution, conserving resources, and eliminating waste. In the future, significant gains in environmental quality are more likely to come from widespread adoption of pollution prevention practices than from more stringent regulation of end-of-pipe emissions. Bridging the gap between public policy and the trends in private-sector management will require fundamental changes in federal and state governments' approaches to regulation. New policies must use economic incentives to encourage clean manufacturing and the adoption of pollution prevention technologies and forge public-private partnerships for improving environmental quality. © 2000, Sage Publications. All rights reserved.",
+        "title": "Corporate Environmental Management and Public Policy: Bridging the Gap",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "6VGSK3ABvO_gzP0s1qpU",
+      "_score": 25.24734,
+      "_source": {
+        "content": "New regionalism encompasses a diversity of approaches to address regional planning problems. Within Australia, the Great Barrier Reef Water Quality Protection Plan was developed to enhance water quality within the World Heritage-listed Great Barrier Reef, and the plan gave responsibility to regional, natural resource management bodies to undertake several actions. This paper evaluates these initiatives in the light of the emerging theory of new regionalism and highlights six main lessons: up-scaling of the catchment approach to a reef-wide approach is essential in order to improve water quality, but must be complemented by cross-regional collaboration; new governance and institutional arrangements and strengthened partnerships must be effectively integrated; culture and history are important in determining the most effective management approaches; pilot projects must move to comprehensive and strategic implementation; science is important but needs to incorporate other branches of knowledge; and economic incentives are important in encouraging the implementation of best practices, but delivery needs to be flexible. We conclude that the new regional approach is appropriate for addressing complex, multi-scale problems such as water quality, and has incorporated several key principles of new regionalism, but that the process must move quickly to a higher level of commitment and application. © 2010 The Authors. Journal compilation © 2010 Institute of Australian Geographers.",
+        "title": "New regionalism and planning for water quality improvement in the great barrier reef, Australia",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "bk6OK3ABvO_gzP0soRTj",
+      "_score": 23.366388,
+      "_source": {
+        "content": "The traditional policy approaches to encourage conservation, including offering monetary incentives and direct regulation, may lead to unintended consequences which may undermine their effectiveness. In this paper we experimentally test the effectiveness of complementing financial nudging/incentives with nudging for empathy. Our framed experiment models a situation in which an upstream farmer influences the water quality downstream by choosing the level of conservation. Financial nudging is represented by a crop insurance subsidy conditional on conservation compliance (consistent with the 2014 Farm Bill policy). Empathy nudging is represented by a downstream water user sending a message to the upstream farmer encouraging the latter to \"walk-in-the-shoes\"/take the perspective of the former. We found that empathy nudging can counteract the elimination of financial incentives. However, it is less effective than financial nudging. Empathy nudging coupled with financial incentives has a synergic effect and conservation increased significantly compared to using one of the nudges alone. Furthermore, the combination of empathy and financial nudging was particularly effective in low (initial) conservation cases. We argue that policy makers and the public should encourage empathy conservation and that the environmental policy narrative should appeal to empathy and call for farmers to \"join the cause\" for conservation and environmental protection. © 2015 Elsevier B.V.",
+        "title": "Walk in my shoes: Nudging for empathy conservation",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "1FGSK3ABvO_gzP0s1Kgr",
+      "_score": 22.682646,
+      "_source": {
+        "content": "Brad Marchant explains the importance of commitment, a clear marketing strategy, understanding of cultural differences, building networks and leaving a positive legacy in making international ventures and partnerships successful. BioteQ became successful as a Canadian exporter by adopting innovative approaches to new markets that has enabled us to bring our wastewater treatment technology to major mining operations around the world. Company's first foray outside of North America was into China, arguably one of the more challenging markets in the sector. Given the nature of the product and market, our focus has always been on targeting countries that have significant mining activities and, in particular, regions within those countries where there are strong environment regulations governing water quality and use. While the new business development process seems straightforward, there are inevitable challenges to overcome when entering any new international market.",
+        "title": "How to build international partnerships in the resource industry",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "8UqHK3ABvO_gzP0syVq8",
+      "_score": 22.41341,
+      "_source": {
+        "content": "wide variety of sources, establishing creative partnerships, and ensuring ",
+        "title": "Snohomish Basin Salmon Recovery Plan_2005",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_WaterQuality/Literature resources/Riparian Buffer Papers and Summary/KCRiparianBuffersPapers/Snohomish Basin Salmon Recovery Plan_2005.pdf"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "olCRK3ABvO_gzP0sf38I",
+      "_score": 22.137339,
+      "_source": {
+        "content": "US EPA announced a finalised policy on water quality trading for effluent saving. It was asserted that trading could increase the pace and success of cleaning up America's impaired inland waters. Market based approaches created economic incentives for innovation, emerging technology voluntary pollution reductions and greater efficiency in improving the quality of nation's water. It was stated that trading could save the public hundreds of millions of dollars by advancing more effective efficient partnerships to clean up and protect watersheds.",
+        "title": "US looks to trading's flexibility for effluent savings",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "50-QK3ABvO_gzP0sClqB",
+      "_score": 22.101692,
+      "_source": {
+        "content": "Local governments are increasingly entering into partnerships with the private sector in the \"externalization\" of public service delivery. While the financial and non-financial interests of the partners involved may appear to be in opposition and potentially un-reconcilable, this is not always the case, especially where governance arrangements exist to align and balance the requirements of financial and non-financial performance. Such arrangements are analysed here with reference to Estonia's largest water company with mixed public-private ownership. It has a business-like management that facilitates a combination of good non-financial performance (quality and affordability) and considerable financial performance (profitability). © 2013 Springer Science+Business Media New York.",
+        "title": "Governance and Performance of a Mixed Public-Private Enterprise: An Assessment of a Company in the Estonian Water Sector",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "7VGSK3ABvO_gzP0sFgVd",
+      "_score": 21.821068,
+      "_source": {
+        "content": "Fresh water is key to sustainable development. World Business Council for Sustainable Development members are addressing fresh water use \"within the corporate fenceline\". However, to address water issues \"outside the corporate fenceline\" will require creative new public-private partnerships. Government's role is to provide sound framework conditions that will encourage businesses to invest time, staff and resources to address vital fresh water issues. Industry is committed to best practice within its internal operations and is ready to enter into partnerships to address broader fresh water issues.",
+        "title": "Industry and water security: Overarching conclusions",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "8k-QK3ABvO_gzP0skr9k",
+      "_score": 21.638826,
+      "_source": {
+        "content": "Mangos are usually attacked after harvest by several pathogens and several preharvest and postharvest treatments are applied to prolong the postharvest life of the fruit. However the limitations imposed on fungicide use at local and international markets and the demand for alternative postharvest disease management practices has resulted in the search for new approaches for disease control. As a result a new postharvest treatment Hot Water Brushing (HWB) that combines a 15 - 20 s combined hot water spray and fruit brushing was developed by Prusky and co-workers to reduce the incidence of postharvest pathogens and improve mango fruit keeping quality. This technology has enabled to reduce the concentrations of the applied fungicides and the inclusion of new fungicides with reduced toxicity and reduced residues with minimal consumer and environmental risks. However several countries are limiting even further the use of postharvest fungicides. To overcome these limitations new friendly compounds that control fungi infection have been developed. The mode of action of these new compounds is based on the capability to neutralize changes in pH induced by several postharvest pathogens. The new generation of compounds could reduce current fungicide residues and prevent consumer and environmental risks.",
+        "title": "New approaches for the control of postharvest diseases of mango fruits",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "a0-QK3ABvO_gzP0sTJN0",
+      "_score": 21.526436,
+      "_source": {
+        "content": "Substantial efforts are being made by industry and government in Australia to reduce adverse impacts of pastoral operations on water quality draining to the Great Barrier Reef. A key target is to achieve rapid adoption of better management practices by landholders, but current theoretical frameworks provide limited guidance about priorities for improving adoption. In this study information from direct surveys with landholders in the two largest catchments draining into the Great Barrier Reef has been collected and analysed. Study outcomes have important implications for policy settings, because they confirm that substantial variations in adoption drivers exist across landholders, enterprises and practices. The results confirm that the three broad barriers to adoption of information gaps, financial incentives and risk perceptions are relevant. This implies that different policy mechanisms, including extension and incentive programs, remain important, although financial incentives were only identified as important to meet capital and transformational costs rather than recurrent costs. © 2015 Elsevier Ltd.",
+        "title": "Factors affecting adoption of improved management practices in the pastoral industry in Great Barrier Reef catchments",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "ElKTK3ABvO_gzP0s0IhC",
+      "_score": 21.322996,
+      "_source": {
+        "content": "New crop production technologies developed in response to growing concern over environmental contamination from agriculture may be neither more profitable nor higher yielding than the systems they replace, but they often reduce environmental contamination or improve soil and water quality. Systems designed with environmental objectives cannot be evaluated fairly just by productivity, which is what often is done in economic studies of alternative systems. We review 58 recent studies comparing alternative crop production systems to identify the key criteria for system comparisons, the system characteristics important in designing the analysis, and the methods most suited for comparing alternative systems. The four key criteria we looked for in system comparisons are expected profit, stability of profits, expected environmental impacts, and stability of environmental impacts. Most economic studies of crop production focus exclusively on profitability., and incorporate neither environmental criteria nor the dynamic characteristics inherent in alternative systems. We identify promising new approaches that take account of specific environmental characteristics and attempt to balance the objectives of profitability and environmental risk management. Balanced environmental-economic analysis is most likely to be achieved by integrating biophysical simulation models with economic optimization methods to model the trade-offs among profitability, environmental impact, and system stability (both financial and environmental).",
+        "title": "Economie methods for comparing alternative crop production systems: A review of the literature",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "u0yKK3ABvO_gzP0scpI3",
+      "_score": 21.222233,
+      "_source": {
+        "content": "\tExpand and revise legislative, legal, policy/ programs, and financial incentives that limit effective, equitable, and economical long term strategies and solutions to water quality.",
+        "title": "WQintv000002  Oct 9 2019 Joan Lee KC SHARE",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_WaterQuality/Task 1 Info Needs Assessment/WQ Interviewee Folders/WQintv000002  Oct 9 2019 Joan Lee KC SHARE.docx"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "dE-PK3ABvO_gzP0s80Vf",
+      "_score": 21.149582,
+      "_source": {
+        "content": "A variety of pressures are driving operators to develop and apply new technologies to achieve compliance through the source reduction or minimization efforts. These drivers include increased concern over air and water quality, government mandates regulating emissions, escalating treatment costs, and increased risk of liability. Since waste formation is often associated with process efficiency, most steps taken to reduce waste improve plant economics by improving process efficiency. And, time and effort devoted to pollution prevention has a positive financial impact on environmental process and business objectives.",
+        "title": "Minimize process waste during plant design",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "SUiFK3ABvO_gzP0st48o",
+      "_score": 21.12881,
+      "_source": {
+        "content": "\t4.3.1 Financial Incentives",
+        "title": "Quinn 2018 Riparian Ecosystems, Volume 2",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_WaterQuality/Literature resources/Riparian Buffer Papers and Summary/KCRiparianBuffersPapers/Quinn 2018 Riparian Ecosystems, Volume 2.pdf"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "IVGSK3ABvO_gzP0sDwA9",
+      "_score": 21.085875,
+      "_source": {
+        "content": "This paper examines the impact of financial development on environmental degradation in China using the city level data over the period 2007–2014. To achieve this task, the Seemingly Unrelated Regression (SUR) model is used. The empirical results show that financial development is helpful to improve the water quality but leads to more SO2 emissions in China. In particular, the financial development of China's big cities increases the burden on both air and water quality. Compared with other regions, financial development is influential in improving the environment in developed regions, namely the eastern coast of China. Together with financial development, the impacts of regulations such as “Beijing Olympic Air Control” and “Green Credit Guidelines” have significantly improved the quality of the environment. Moreover, the findings reveal that cities with higher provincial financial sector output have lower SO2 emissions and waste water discharge. © 2018 Elsevier Ltd",
+        "title": "Is financial development in China green? Evidence from city level data",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "0kyJK3ABvO_gzP0s6EX8",
+      "_score": 21.055393,
+      "_source": {
+        "content": " Financial Incentives 1940 ",
+        "title": "WDFW Vol 2 (2018)",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_WaterQuality/Literature resources/Riparian Buffer Papers and Summary/KCRiparianBuffersPapers/WDFW Vol 2 (2018).pdf"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "F0iFK3ABvO_gzP0srYYq",
+      "_score": 21.003849,
+      "_source": {
+        "content": " Financial Incentives 1940 ",
+        "title": "Quinn 2018 Riparian Ecosystems, Volume 2",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_WaterQuality/Literature resources/Riparian Buffer Papers and Summary/KCRiparianBuffersPapers/Quinn 2018 Riparian Ecosystems, Volume 2.pdf"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "D0yJK3ABvO_gzP0s8k9B",
+      "_score": 21.003849,
+      "_source": {
+        "content": "\t4.3.1 Financial Incentives",
+        "title": "WDFW Vol 2 (2018)",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_WaterQuality/Literature resources/Riparian Buffer Papers and Summary/KCRiparianBuffersPapers/WDFW Vol 2 (2018).pdf"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "RE-QK3ABvO_gzP0sCFnC",
+      "_score": 20.9341,
+      "_source": {
+        "content": "The concerns on increasing awareness for systems development to improve water quality of effluents from wastewater treatment and industrial facilities have provided incentives to develop new technologies and improve performance of current technologies. In this paper, the patents on achievements of industrial wastewater treatment by wet oxidation (WO) and catalytic wet oxidation (CWO) processes during the period from 1993 to 2012 were reviewed. An assessment of the current and future outlook for development of CWO process, catalyst that can be used for wastewater treatment applications is presented. © 2013 Bentham Science Publishers.",
+        "title": "A review: Wet oxidation and catalytic wet oxidation of industrial wastewater",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "ZkyKK3ABvO_gzP0sDWgL",
+      "_score": 20.833958,
+      "_source": {
+        "content": "are offered financial incentives.",
+        "title": "Wenger and Fowler 2000 Protecting stream and river cooridors",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_WaterQuality/Literature resources/Riparian Buffer Papers and Summary/KCRiparianBuffersPapers/Wenger and Fowler 2000 Protecting stream and river cooridors.pdf"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "SlCRK3ABvO_gzP0sEB9c",
+      "_score": 20.829464,
+      "_source": {
+        "content": "Voluntary approaches have traditionally been used to address environmental externalities emanating from agricultural production in the United States. However, voluntary approaches have largely failed to improve water quality in impaired waters. This paper assesses how to increase the efficiency of voluntary conservation in the context of the Chesapeake Bay. Field-level data representative of cropland in the bay watershed are analyzed using a programming model to quantify the gains of targeting technology- based incentives and of performance-based incentives. Performance-based approaches were the most efficient. The efficiency of technology-based approaches was improved by targeting cropland with features indicative of low marginal abatement costs. © 2016 by the Board of Regents of the University of Wisconsin System.",
+        "title": "Improving the efficiency of voluntary water quality conservation programs",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "6EyKK3ABvO_gzP0saIlT",
+      "_score": 20.772104,
+      "_source": {
+        "content": "\tWhat treatment methods and management practices, new approaches and technologies reduce contaminant loads in rivers and wastewater?",
+        "title": "WQIntv10010 Nov 21 2019 Daryl Williams Tulalip Tribes",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_WaterQuality/Task 1 Info Needs Assessment/_Interviewees_temp_private/WQIntv10010 Nov 21 2019 Daryl Williams Tulalip Tribes.docx"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "5VKTK3ABvO_gzP0sYCJE",
+      "_score": 20.761478,
+      "_source": {
+        "content": "This paper shows how combining phosphate and chelant treatment for zeolite-softened boiler water will reduce sludge and minimize corrosion. The discussion covers the following topics: feedwater quality; traditional approaches; a new approach (using both chelants and phosphates); and an example.",
+        "title": "CHELANT/PHOSPHATE TREATMENT FOR BOILER WATER.",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "XlCRK3ABvO_gzP0sn51i",
+      "_score": 20.554407,
+      "_source": {
+        "content": "The article summarises the main points of the latest legislation governing the treatment and disposal of waste water (Legislative decree 152/99, integrated with 258/2000 and published in a supplement to the Gazzetta Ufficiale no. 246 of 20/10/2000). The main objectives of the laws are to reduce pollution and promote the reclamation of polluted bodies of water, improve and protect the state of water. The article discusses the ways in which these objectives can be achieved, new approaches to the problem of protecting water quality and the regulations governing the treatment and disposal of waste water.",
+        "title": "What to do about waste water? [Acque reflue, costa fare?]",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "QU6OK3ABvO_gzP0szz0k",
+      "_score": 20.42205,
+      "_source": {
+        "content": "Nutrient surpluses, inefficiencies in nutrient use, and inevitable leakage of nutrients from grazed animal production systems are putting growing pressure on Australian inland and coastal water resources. While there are some examples of regulatory policy approaches in Australia which aim to reduce nutrient emissions and improve water quality around important and impaired coastal and inland waters, most policy options involve voluntary schemes, often including financial incentives to both industry organisations and farmers to offset the costs of implementing improved management practices. In contrast, much stronger land management regulations have been implemented in the European Union, USA, and to a lesser extent New Zealand. In the near future, greater societal expectations for water quality, stricter standards from international markets, and increasing costs for purchased nutrients will mean that improving nutrient-use efficiency and reducing nutrient losses will be a necessary part of Australia livestock production systems. This is likely to require somewhat varied and difficult choices to better balance production and environmental goals. Policy responses may include voluntary adoption of appropriate nutrient management practices, caps on nutrient inputs, mandatory nutrient surplus targets, limits to stock numbers per hectare, and re-positioning of higher input farms to more resilient parts of the national landscape. Alternatively, society may have to accept that there are unavoidable trade-offs between water quality standards and livestock productivity, with increasing treatment of polluted water at the community's expense. Journal compilation © CSIRO 2012.",
+        "title": "Nutrient surpluses in Australian grazing systems: Management practices, policy approaches, and difficult choices to improve water quality",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "K0qHK3ABvO_gzP0ssEGt",
+      "_score": 20.355047,
+      "_source": {
+        "content": "4. Advertise financial resources, incentives, and grant opportunities ",
+        "title": "Snohomish Basin Salmon Recovery Plan_2005",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_WaterQuality/Literature resources/Riparian Buffer Papers and Summary/KCRiparianBuffersPapers/Snohomish Basin Salmon Recovery Plan_2005.pdf"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "8U-PK3ABvO_gzP0sziKa",
+      "_score": 20.25697,
+      "_source": {
+        "content": "Challenge: Government and private-sector interests continue to seek new, more sustainable and cost-efficient solutions to water quality and water management. Solution: Communities everywhere are looking to sustainable engineering innovations-such as using natural systems, biofilm strips and other creative \"landscape-as-infrastructure\" approaches. Conclusion: Use of these approaches preserves natural habitats, saves money, reduces infrastructure maintenance needs, and ultimately creates long-term sustainability for our water systems.",
+        "title": "Integrated land planning: A welcome alternative",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "qkqHK3ABvO_gzP0ssUEh",
+      "_score": 20.232552,
+      "_source": {
+        "content": "6.  Provide financial incentives and technical assistance for ecologically ",
+        "title": "Snohomish Basin Salmon Recovery Plan_2005",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_WaterQuality/Literature resources/Riparian Buffer Papers and Summary/KCRiparianBuffersPapers/Snohomish Basin Salmon Recovery Plan_2005.pdf"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "KlGSK3ABvO_gzP0s3rEA",
+      "_score": 20.22495,
+      "_source": {
+        "content": "In a time when clean water and healthy soil is as important as ever, conservation buffer technologies represent new approaches that deserve wider application. Conservation buffers are living filters, credited with increasing the effectiveness and lowering the cost of programs to protect soil and water quality. Although still under used by landowners, conservation buffers are important components of U.S. Department of Agriculture (USDA) conservation assistance programs that offer landowners attractive financial incentives to adopt the practices. To promote the merits of buffers and enhance their adoption, maybe it's time we looked at what we know about buffers; discuss where more research is needed; and translate how buffer research can be more effective in establishing agricultural policies and conservation plans.",
+        "title": "Improving water and soil quality with conservation buffers",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "PFCRK3ABvO_gzP0sQ0mk",
+      "_score": 20.22295,
+      "_source": {
+        "content": "Despite being a humid water-rich State, North Carolina does have water use problems and conservation steps are being taken. Conservation measures can: 1) reduce treatment and construction costs; 2) reduce energy costs; 3) extend the use of high quality water sources; 4) extend the life of existing facilities; 5) reduce environmental impacts; and 6) improve on-site facility performance with decreased flows. -from Selected Water Resources Abstracts",
+        "title": "Water conservation needs and approaches in humid areas ( North Carolina).",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "_VGSK3ABvO_gzP0sQyu4",
+      "_score": 20.172396,
+      "_source": {
+        "content": "Farmers are getting financial rewards for implementing conservation measures on their farms. Industrial wastewater treatment plants are buying credits generated from these measures to meet their NPDES permit regulatory requirements. This is referred to as water quality trading. The treatment plants find it less expensive to pay agricultural producers to implement conservation practices than to upgrade or install new technologies at their plants, the producers get rewarded for their efforts, and the environment benefits in multiple ways including water quality, wildlife habitat, and carbon sequestration. This paper reviews the approaches to water quality trading, its current status of implementation around the nation, and different tools, including the Nitrogen Trading Tool (NTT) being developed by the USDA/NRCS in cooperation with USDA-ARS Soil Plant Nutrient Research Unit to facilitate this process.",
+        "title": "Nutrient credit trading--a market-based approach for improving water quality",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "7lCRK3ABvO_gzP0sbm_c",
+      "_score": 20.046337,
+      "_source": {
+        "content": "Current Canadian policy approaches to agricultural water quality encourage the adoption of best management practices through voluntary, incentive-based measures. Despite these measures, concerns about agricultural impacts on water quality persist. Performance-based policy approaches with incentives that are tied to defined outcomes, and not to particular practices, may have an important role in managing water quality. Five performance-based approaches to address water quality in agricultural landscapes were identified: water quality trading/permitting, differentiated payments for ecosystem services, reverse auctions; emissions charges, and cross-compliance (a hybrid measure). The purpose of this paper is to critically assess the institutional and socio-cultural context that facilitated existing performance-based policy instrument adoption. Through this analysis, three key contextual factors were identified as enablers of performance based approaches: (1) social context, (2) institutional capacity and (3) standardized, consistent and robust estimation methodologies. A framework was developed to classify performance based programs and approaches. The application of the findings from this research and the classification framework provide an organized approach to assess the feasibility of implementing performance-based approaches for agri-environmental water quality policy. © 2014 Canadian Water Resources Association.",
+        "title": "Context and capacity: The potential for performance-based agricultural water quality policy",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "IUaDK3ABvO_gzP0sZHmo",
+      "_score": 20.024124,
+      "_source": {
+        "content": "adjacent to agricultural fields since 1987, and financial incentives",
+        "title": "Bourgeois et al (2016)",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_WaterQuality/Literature resources/Riparian Buffer Papers and Summary/KCRiparianBuffersPapers/Bourgeois et al (2016).pdf"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "K0-QK3ABvO_gzP0sjLtP",
+      "_score": 19.987808,
+      "_source": {
+        "content": "This is a review of Great Lakes coastal wetland protection measures for both the United States and Canada, including regulatory mechanisms, tax incentives, securement stewardship initiatives and special programs/ partnerships. International, federal, provincial, state, and local government and nongovernment programs are reviewed with commentary on effectiveness of such programs. Programs vary in scope and comprehensiveness at all levels. Major recent initiatives focus on water quality improvement from federal/state government and waterfowl habitat restoration from government/nongovernment partnerships.",
+        "title": "Strategies for the stewardship and conservation of Great Lakes coastal wetlands",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "KU2NK3ABvO_gzP0smbls",
+      "_score": 19.942854,
+      "_source": {
+        "content": "The NSF C-Accel Pilot intends to support fundamental research while encouraging rapid advances through partnerships that include, or will include, multiple stakeholders (e.g., industry, academic, not-for-profits, government entities, and others). The NSF C-Accel Pilot will bring teams together in a cohort that are all focused on a common research goal of national importance but which may be pursuing many different approaches. ",
+        "title": "NSF Convergence Accelerator letter 2019-03-15(1)",
+        "path": "drive-download-20200127T161340Z-001/Nsf/Nsf Guidance/NSF Convergence Accelerator letter 2019-03-15(1).docx"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "bE2NK3ABvO_gzP0sm7oG",
+      "_score": 19.893808,
+      "_source": {
+        "content": "The NSF C-Accel Pilot intends to support fundamental research while encouraging rapid advances through partnerships that include, or will include, multiple stakeholders (e.g., industry, academic, not-for-profits, government entities, and others). The NSF C-Accel Pilot will bring teams together in a cohort that are all focused on a common research goal of national importance but which may be pursuing many different approaches. ",
+        "title": "NSF Convergence Accelerator letter 2019-03-15",
+        "path": "drive-download-20200127T161340Z-001/Nsf/Nsf Guidance/NSF Convergence Accelerator letter 2019-03-15.docx"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "KU-QK3ABvO_gzP0saJ_R",
+      "_score": 19.807312,
+      "_source": {
+        "content": "Water catchment areas have been corrupted by pollutants from agriculture such as nitrates or pesticides. In order to improve water catchments quality, it is necessary to work up on the scale of the whole water catchment area. In order to reduce or eliminate these substances discharges in ground water, agricultural practices have to be modifed. The French Rural Development Programme (FRDP) set up quite complete series of measures intended for rural development actors. For example, financiai support can be assigned to farmers who are interested in changing their professional practices by taking into account water catchment quality. These financial supports can take two forms: - financial assistance to introduce new agricultural practices based on Local Agri-Environment Measures (LAEM); - payments to buy new equipments within the framework of the Vegetation Plan for Environment (VPE).",
+        "title": "Direct financial support to farmers in order to restore water quality [Des aides directes aux agriculteurs pour restaurer la qualité de l'eau]",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "K0yKK3ABvO_gzP0sAF2s",
+      "_score": 19.769777,
+      "_source": {
+        "content": "buffers are desirable including financial incentives to plant in conservation, aesthetics, or ",
+        "title": "Maria-2013_Masters_agBufferWidths_beneficialINSECTSs",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_WaterQuality/Literature resources/Riparian Buffer Papers and Summary/KCRiparianBuffersPapers/Maria-2013_Masters_agBufferWidths_beneficialINSECTSs.pdf"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "i1CRK3ABvO_gzP0sT1Mb",
+      "_score": 19.762173,
+      "_source": {
+        "content": "Waternet (formerly Amsterdam Water Supply) has been seeking a sustainable scenario for producing drinking water and offering services that fulfill the requirements of clients and regulations, and, at the same time, maintains a sound environmental performance while keeping costs as low as possible. Presently, the company is in the process of evaluating alternatives for the treatment of water that cause the least financial and environmental impacts. The quantification of these impacts, for the current conditions, was carried out in earlier investigations. However, until now, the water quality aspect was not yet considered. In order to include this water quality aspect into the financial and environmental assessment, a quality function was constructed created by comparing water quality parameter values for a current and an alternative treatment process. Four qualifications were assigned to the sum of these scores: \"Worse\", \"Same\", \"Better\" and \"Much better\". The qualifications allowed the comparison of the water quality and the financial and environmental impacts of the selected alternatives using a graphical representation of them. The method was applied focusing on the environmental and financial assessment of six alternative processes for the Loenderveen-Weesperkarspel treatment line, and including the quality aspect, as a third parameter for comparison. © 2006 Elsevier Ltd. All rights reserved.",
+        "title": "Environmental, financial and quality assessment of drinking water processes at Waternet",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "nFCRK3ABvO_gzP0sq6g7",
+      "_score": 19.687756,
+      "_source": {
+        "content": "The technical trends and challenges faced by the water and wastewater treatment and distribution sector in Czech Republic and the role of Public Private Partnerships (PPP) to help the country comply with EU directives are discussed. More than 90% of the Czech population is connected to the public drinking water network, from which the quality of drinking water is controlled and monitored daily by water distribution companies. The strategy of Czech water distribution companies is the protection of natural water resources to preserve high water quality for future generations. The application of new EU regulations, requiring new quality parameters to be monitored and limited, affect the drinking water quality. Several drinking water plants have been upgraded with new, conventional technologies and operational approaches to cope with these new regulations. PPC in Central Europe presents numerous advantages to municipalities, customers and employees, and can benefit all stakeholders.",
+        "title": "PPPs help Czech Republic comply with EU directives",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "D0yKK3ABvO_gzP0sDGgC",
+      "_score": 19.567753,
+      "_source": {
+        "content": "tional information on BMPs and financial incentives for their use is avail-",
+        "title": "Wenger and Fowler 2000 Protecting stream and river cooridors",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_WaterQuality/Literature resources/Riparian Buffer Papers and Summary/KCRiparianBuffersPapers/Wenger and Fowler 2000 Protecting stream and river cooridors.pdf"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "olGSK3ABvO_gzP0sEQFQ",
+      "_score": 19.50995,
+      "_source": {
+        "content": "Water footprints have been proposed as being suitable indicators for quantifying the impacts of goods and services on freshwater scarcity and quality. We have assessed two different approaches to determine the water footprint of apples. These approaches are the consumptive approach of the Water Footprint Network (WFN), and the hydrological approach that has recently been published for kiwifruit from New Zealand. Using the hydrological approach, which we consider rational, we find that the water footprint of export apple production from the orchard phase in New Zealand is slightly negative, at-3.3 L/kg, although it can be considered essentially zero. That is, as much water is returned to the blue water resource (B) under the orchards by winter rains, as is withdrawn for irrigation in summer. We conclude therefore that export apple production in New Zealand is sustainable in terms of water quantity. Nonetheless, there is burgeoning pressure on our water resources, and apple growers, along with all others, must be encouraged to reduce further their usage of, and impacts on our water resources. To assist apple growers, we have developed a water-footprint decision support tool to enable eco-verification of apple production and measures of continuous improvement.",
+        "title": "Minimising the water footprint of fruit for multiple benefits",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "j0aDK3ABvO_gzP0sF0IO",
+      "_score": 19.472847,
+      "_source": {
+        "content": "(WHIP) is a United States Department of Agriculture program that provides financial incentives to",
+        "title": "Polyakov_et_al_2005",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_WaterQuality/Literature resources/Riparian Buffer Papers and Summary/KCRiparianBuffersPapers/Polyakov_et_al_2005.pdf"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "S0-QK3ABvO_gzP0sIG0V",
+      "_score": 19.423344,
+      "_source": {
+        "content": "In 2010, a Total Maximum Daily Load (TMDL) was established for the Chesapeake Bay, defining the limits on emissions of nitrogen, phosphorus, and sediment necessary to reverse declines in the Bay’s quality and associated biological resources. Agriculture is the largest single source of nutrients and sediment in the watershed. We use data on crop and animal agriculture in the watershed to assess the relative effectiveness of alternative policy approaches for achieving the nutrient and sediment reduction goals of the TMDL, ranging from voluntary financial incentives to regulations. The cost of achieving water quality goals depends heavily on which policy choices are selected and how they are implemented. We found that policies that provide incentives for water quality improvements are the most efficient, assuming necessary information on pollutant delivery is available for each field. Policies that directly encourage adoption of management systems that protect water quality (referred to as design-based) are the most practical, given the limited information that is generally available to farmers and resource agencies. Information on field characteristics can be used to target design-based policies to improve efficiency. © 2016 by Nova Science Publishers, Inc.",
+        "title": "An economic assessment of policy options to reduce agricultural pollutants in the chesapeake bay",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "zkV_K3ABvO_gzP0sEB4E",
+      "_score": 19.364994,
+      "_source": {
+        "content": "• Create incentives for people to live in urban areas (e.g., creative developments, clustered subdivisions, high-density developments) to conserve lands as populations grow. ",
+        "title": "WORKING LANDS AND CONSERVATION COMMUNITY MEETING_Chehalis_2Nov2018",
+        "path": "docs/WORKING LANDS AND CONSERVATION COMMUNITY MEETING_Chehalis_2Nov2018.txt"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "yFGSK3ABvO_gzP0sn3oc",
+      "_score": 19.362587,
+      "_source": {
+        "content": "While the utilities in the Dallas-Fort Worth area are proud of improvements they have helped bring about in the environment, there is work still ahead to meet the unique challenges they face. New water quality standards are changing the way wastewater treatment is done, and the economic cost has been high. New requirements, such as nitrification and detailed monitoring at the discharge point, will improve water quality, but whether or not these benefits are proportionate to the cost should be evaluated. In the days ahead, utilities must rise to the challenge of solving nonpoint pollution problems and other concerns associated with growth and urbinization of the area to maintain and improve water quality.",
+        "title": "Water pollution control in Dallas-Fort Worth",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "31GTK3ABvO_gzP0sPP8C",
+      "_score": 19.335835,
+      "_source": {
+        "content": "Concern for a healthy drinking water derived from the basic human needs , because it is required under the international convention to ensure clean safe water for all at all levels. Therefore, municipalities and local communities are already submitting their proposals for decades to obtain financial resources for co-financing wastewater treatment plants. Since this kind of tenders are no longer available, and the majority of rural areas (in Slovenia 60%) still does not have regulated sewerage, other approaches, that allow reducing the concentrations of pollutants in the water, which are harmful for our health, are becoming more and more important. In this paper we presented the possibility of using natural wastewater treatment systems, which in the comparative method pilot test work reliably and are ready to be quickly, without major investment used in practice. We analyzed Gajevsko Lake as an example of highly contaminated water accumulation. In a cross-border project Slovenia-Croatia we developed approaches to reduce pollutants in water and this has an important influence on the quality of the soil and human health.",
+        "title": "Natural cleaning systems as inovation approaches for clean water (in the case of cross-border region between mura and drava-gajsevsko lake) [Naravni Ôistilni Sistemi Kot Inovavitni Pristopi Za Ôiôenje Vode Na Primeru Ôezmejnega Obmocja Med Muro In Dravo-Gajsevsko Jezero]",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "fFGSK3ABvO_gzP0sHQxv",
+      "_score": 19.320639,
+      "_source": {
+        "content": "One of the major issues in Kuantan, Pahang, Malaysia is the water quality of Galing River which is flowing through the area. Currently, overall water quality of the river is very poor, i.e., Class IV (based on the Malaysian water quality standards), mainly due to wastewater discharged from residential area and industries without being properly treated. Due to severe pollution, aquatic ecosystem has not been properly developed. Thus, it is being considered to construct a new wastewater treatment plant (WWTP) to prevent discharge of pollutants and to improve the river water quality. Therefore, this study was conducted to identify the pollution sources along the river and assess their impacts on the water quality. In addition, a numerical model was formulated with the Environmental Fluid Dynamic Code (EFDC) to find a best plan to improve the water quality. Through the model simulation, it was found that wastewater from all the U-drains and culverts along the river should be collected by sewer, transported to a WWTP for treatment, and then pumped to the upstream of the river for discharge. It was also found that if the WWTP would reduce pollution load by 80%, the current water quality of the river would improve by 80% to achieve Class II. © 2017 Elsevier B.V.",
+        "title": "Modeling approach to evaluation of environmental impacts on river water quality: A case study with Galing River, Kuantan, Pahang, Malaysia",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "8UyJK3ABvO_gzP0s6UUW",
+      "_score": 19.298855,
+      "_source": {
+        "content": "Agricultural property owners can take advantage of a host of financial incentives described below 1963 ",
+        "title": "WDFW Vol 2 (2018)",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_WaterQuality/Literature resources/Riparian Buffer Papers and Summary/KCRiparianBuffersPapers/WDFW Vol 2 (2018).pdf"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "2FGSK3ABvO_gzP0s-cbg",
+      "_score": 19.232843,
+      "_source": {
+        "content": "In this article, the author talk about the impacts of the Agricultural non-point pollution on water quality and health, and outline the economic characteristics of Ave instruments that can be used to reduce agricultural nonpoint source pollution (economic incentives, standards, education, liability, and research) and discusses empirical research related to the use of these instruments. © 2010 IEEE.",
+        "title": "Agri-environmetal instruments for nonpoint pollution: Theory and practice",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "LVOUK3ABvO_gzP0sjC_b",
+      "_score": 19.143713,
+      "_source": {
+        "content": "Nutrients are fast becoming an issue of major importance to the pulp and paper industry. Many waters of the US have been placed on state 303(d) lists of impaired waters for impacts related to eutrophication and for violation of narrative criteria. The upcoming adoption of numerical nutrient criteria will lead to additional listings of nutrient-impaired waters. These 303(d) listed waters will in turn require TMDLs that will stipulate load reductions to bring waters into compliance with the new criteria and allocate nutrient loads between point and nonpoint sources. This workshop will consist of the following sessions: Regulatory Assessment and Update Criteria - EPA recommendations and state efforts TMDLs - New rules and implications Nutrient Cycling Basics Nitrogen & Phosphorus - algal uptake/recycling, sources, sediment regeneration Receiving Water Quality Modeling Fundamentals - What are they, how developed/applied and why use them? TMDL Modeling Approaches - tools, case examples (rivers and estuaries) What Industry Environmental Managers Need to Know Nutrients in Pulp Mills Sources Controls Treatment Options This workshop is designed for industry environmental managers. It will provide a technical overview of regulatory issues related to nutrients, water quality assessment and analysis (including nutrient modeling) in receiving waters that form the basis of 303(d) listing and TMDLs, and control and treatment options available at the mill level.",
+        "title": "Nutrients and the pulp and paper industry: Issues, analysis, treatment (sponsored by the water quality committee of the environmental division)",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "NkiFK3ABvO_gzP0srYZH",
+      "_score": 19.131721,
+      "_source": {
+        "content": "Agricultural property owners can take advantage of a host of financial incentives described below 1963 ",
+        "title": "Quinn 2018 Riparian Ecosystems, Volume 2",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_WaterQuality/Literature resources/Riparian Buffer Papers and Summary/KCRiparianBuffersPapers/Quinn 2018 Riparian Ecosystems, Volume 2.pdf"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "Dk6PK3ABvO_gzP0sDXLm",
+      "_score": 19.013298,
+      "_source": {
+        "content": "This article uses the Central Coast region of California as a case study to examine the challenges of protecting coastal ecosystems near areas of intensive agricultural production. Coastal water quality and biodiversity are greatly impacted by regional land use. Agricultural land use can have significant impacts on water quality through erosion and the runoff of agricultural chemicals. While the Central Coast region of California is a center for intensive agricultural production, it is also home to the largest marine sanctuary in the United States. This combination has resulted in intensive efforts from government agencies and conservation organizations to reduce pollution associated with agriculture. Efforts have focused on education and incentives, but are recently facing increasing challenges stemming from new standards created by the produce industry in response to food safety concerns. Personal interviews with crop growers were used to explore these challenges and to better understand the range of possible environmental impacts resulting from new food safety standards. Results indicate that substantial management changes are taking place that are likely to impact regional water quality and wildlife. This case study also explores the role of policy networks in shaping management decisions and illustrates how certain approaches to addressing agricultural pollution may be vulnerable to external policy changes. © Taylor & Francis Group, LLC.",
+        "title": "Coastal ecosystems and agricultural land use: New challenges on California's central coast",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "REeEK3ABvO_gzP0sCR4M",
+      "_score": 18.990664,
+      "_source": {
+        "content": "financial incentives provided by CREP, in Washington State, only 8% of the CREP eligible streamside is ",
+        "title": "KCD_Awole et al 2018_KCD Discovery Farms white paper",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_WaterQuality/Literature resources/Riparian Buffer Papers and Summary/KCRiparianBuffersPapers/KCD_Awole et al 2018_KCD Discovery Farms white paper.pdf"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "2lCRK3ABvO_gzP0sJjFP",
+      "_score": 18.981178,
+      "_source": {
+        "content": "Partly in response to the UK flooding events of 2007, a number of reports have recently been produced addressing the legislative, administrative, institutional and structural practices that are required to improve urban surface water management and hence reduce future flooding incidents and associated pollution impacts. This paper addresses the principal barriers to progress that have been identified and how these are likely to be overcome. Improved and integrated organisational structures, process and procedures are required and relationships between flood risk management and water quality need to be addressed at regional, area and local levels as well as legislative clarification on surface water discharges. Nontechnical aspects will need to be supported by new modelling approaches for flood risk prediction at both local and catchment scale with effective communication systems and tools being developed and implemented for full and effective stakeholder participation. © 2009 The Authors. Journal compilation © 2009 CIWEM.",
+        "title": "The management of urban surface water drainage in England and Wales",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "j1KUK3ABvO_gzP0sU_gs",
+      "_score": 18.874859,
+      "_source": {
+        "content": "To improve surface water quality in developing countries new approaches to design wastewater treatment schemes have been developed. We identify a compliance problem in these schemes which threatens their success. To analyze this problem, we integrate a compliance game into a model of the urban water chain. We illustrate the model with a numerical example on small scale leather processing. We find that the compliance problem indeed threatens the overall success of the treatment scheme and show under which conditions this is so. With an empirical calibration our model is a ready to use tool to provide quantitative results that can inform planners of urban wastewater treatment schemes. © 2012 Taylor and Francis Group, LLC.",
+        "title": "Modelling the urban water chain: Incentives and cost recovery in wastewater treatment in developing countries",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "REWBK3ABvO_gzP0sgnQh",
+      "_score": 18.841543,
+      "_source": {
+        "content": "partnerships, and approaches that the committee reviewed all ",
+        "title": "National Acadamies of Science review of Landscape Conservation Collaboratives",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_Biodiversity/General Biodiversity Team/Biodiv_References/National Acadamies of Science review of Landscape Conservation Collaboratives.pdf"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "vlGSK3ABvO_gzP0shGRO",
+      "_score": 18.654547,
+      "_source": {
+        "content": "Principal component analysis is a way to reduce original dimension, to make multiple variables into a few comprehensive index. According to the characteristics of water quality evaluation model, principal component analysis method is developed to evaluate surface water quality using SPSS software at representative sections. By the combination of variables index, adjusting the combinatorial coefficient to make the new variables representative independent. The process is introduced in the paper in detail. The results indicate that the principal component model is suitable for water quality evaluation. By analysis, it is important to pay attention to bring into effective measures for pollution control.",
+        "title": "Evaluation of water quality using principal component analysis",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "VFKTK3ABvO_gzP0sQwZ6",
+      "_score": 18.57015,
+      "_source": {
+        "content": "Urban-rural partnerships are increasingly viewed as a critical component of efforts to improve water quality at the watershed scale. We present an opportunity for such partnerships, using an off-site best management practice (BMP) program developed between the City of Wichita and agricultural producers in the Little Arkansas River Watershed of south-central Kansas as an example. We highlight the critical role of Extension specialists in developing this and similar programs, the success of which hinges on targeted BMP implementation and relationships with agricultural producers. © by Extension Journal, Inc.",
+        "title": "Integrating watershed management across the Urban-rural interface: Opportunities for extension watershed programs",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "7FOUK3ABvO_gzP0sYAbu",
+      "_score": 18.468573,
+      "_source": {
+        "content": "Early action refers to activities undertaken prior to a regulatory program or generation of services prior to mitigation of impacts elsewhere. In U.S. environmental markets, early action could reduce lags in environmental performance, improve outcomes, and encourage innovation in mitigation approaches. Multiple tools have emerged for encouraging early action in environmental markets. Several tools have also been deployed in markets, providing valuable insight into their function. This paper presents a systematic review of early action tools and describes their use in wetland and stream mitigation, species and habitat banking, greenhouse gas mitigation, and water quality trading. It finds that incentives necessary to motivate sellers differ from those motivating buyers. The tool or approach best suited to encourage early action also varies as conditions change. Anecdotal evidence suggests the potential for benefits to accrue from early action, but additional data are needed to inform the use of specific tools. © 2017 Elsevier Ltd",
+        "title": "Facilitating markets and mitigation: A systematic review of early-action incentives in the U.S.",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "h1KTK3ABvO_gzP0scTPf",
+      "_score": 18.374258,
+      "_source": {
+        "content": "As the urban populations increase we have to think more deeply about how to make cities less stressful and more creative for people to live in. Live ability and quality of life are key factors whilst designing and managing energy, water, pollution and waste systems which are sustainable for the long term. New approaches are proposed with recommendations for achieving these goals. © 2012 IEEE.",
+        "title": "Intelligent sustainable liveable cities",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "HlCRK3ABvO_gzP0szcfJ",
+      "_score": 18.270603,
+      "_source": {
+        "content": "Pulp and Paper Industry: Emerging Waste Water Treatment Technologies is the first book which comprehensively reviews this topic. Over the past decade, pulp and paper companies have continued to focus on minimizing fresh water use and effluent discharges as part of their move towards sustainable operating practices. Three stages-basic conservation, water reuse and water recycling-provide a systematic approach to water resource management. Implementing these stages requires increased financial investment and better utilization of water resources. The ultimate goal for pulp and paper companies is to have effluent-free factories with no negative environmental impact. The traditional water treatment technologies that are used in paper mills are not able to remove recalcitrant contaminants. Therefore, advanced water treatment technologies are being included in industrial wastewater treatment chains aiming to either improve water biodegradability or its final quality. This book discusses various measures being adopted by the pulp and paper industry to reduce water consumption and treatment techniques to treat wastewater to recover it for reuse. The book also examines the emerging technologies for treatment of effluents and presents examples of full-scale installations. Provides thorough and in-depth coverage of advanced treatment technologies which will benefit the industry personnel, pulp manufacturers, researchers and advanced students. Presents new treatment strategies to improve water reuse and fulfill the legislation in force regarding wastewater discharge. Presents viable solutions for pulp and paper manufacturers in terms of wastewater treatment. Presents examples of full-scale installations to help motivate mill personnel to incorporate new technologies. © 2017 Elsevier Inc. All rights reserved.",
+        "title": "Pulp and Paper Industry: Emerging Wastewater Treatment Technologies",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "dU6PK3ABvO_gzP0sVrTo",
+      "_score": 18.225266,
+      "_source": {
+        "content": "A number of new technologies for the advanced treatment of wastewater have recently been developed. The oxidative cometabolic transformation by methanotrophs and by nitrifiers represent new approaches in relation to organic carbon. The Biological Activated Carbon Oxidative Filters characterized by thin biofilms are also promising in that respect. Moreover, implementing genetically modified organisms with improved catabolic potential in advanced water treatment comes into perspective. For very refractory effluents chemical support techniques, like e.g. strong chemical oxidation, can be lined up with advanced biology.A number of new technologies for the advanced treatment of wastewater have recently been developed. The oxidative cometabolic transformation by methanotrophs and by nitrifiers represent new approaches in relation to organic carbon. The Biological Activated Carbon Oxidative Filters characterized by thin biofilms are also promising in that respect. Moreover, implementing genetically modified organisms with improved catabolic potential in advanced water treatment comes into perspective. For very refractory effluents chemical support techniques, like e.g. strong chemical oxidation, can be lined up with advanced biology.",
+        "title": "New biology for advanced wastewater treatment",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "1k6PK3ABvO_gzP0sWreG",
+      "_score": 18.198982,
+      "_source": {
+        "content": "A new design of a softening vessel gives the water treatment process 'rapid chemical softening' a new quality level. There were developed boost operations parallel to the new design by hydraulical optimisation. These operations improve the comfortability and stability of the whole system. That is the 'soft start' of a reactor and an automatically working device for accurate output of pellets.",
+        "title": "Development and implementation of a new generation of automated softening reactor [Entwicklung und einsatz einer neuen, automatisierten enthartungsreaktor-generation]",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "aE6PK3ABvO_gzP0sb8o1",
+      "_score": 18.17857,
+      "_source": {
+        "content": "California's continued growth, coupled with ecological demands for water in the Sacramento-San Joaquin Delta, have led to drastic new water conservation and recycling requirements for all communities throughout the state. Meanwhile, water quality regulations governing discharges of treated municipal wastewater are becoming stricter. California communities are having to upgrade treatment plants to achieve new water quality standards and are searching for creative ways to finance these upgrades. One way some communities are exploring to finance treatment plant upgrades is to obtain, and then sell or transfer water rights to the high-quality recycled water they produce. But historical notions of just “who owns the recycled water” may potentially impede these communities from achieving their goals. This paper explores why California should re-examine historical notions of recycled water ownership and management, and why, fundamentally, recycled water is a “new source” of “developed water” over which POTWs should have total control and rights to. © 2012 Water Environment Federation.",
+        "title": "Why California should re-examine historical notions of recycled water ownership and management",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "FVKTK3ABvO_gzP0scjSC",
+      "_score": 18.149837,
+      "_source": {
+        "content": "Substances commonly found in drinking water can injure hemodialysis patients if they are not removed from the water during the preparation of dialysate. Standards have been developed that specify the maximum allowable levels of these substances in dialysate. Those standards have recently been revised. While the maximum allowable levels of chemical contaminants have not changed, a more sensitive method for bacterial cultures has been specified and the maximum allowable levels of bacteria and endotoxin in the new standards have been decreased. These decreases are a consequence of an increasing body of evidence that improving dialysate quality positively impacts patient outcomes. Meeting the new microbiological standards could require dialysis facilities to adopt new approaches to managing their water treatment and concentrate preparation systems. To address this need, the new standards present a framework for developing a facility-specific quality management system for ensuring dialysate quality based on validation of system performance, coupled with routine monitoring and periodic revalidation of performance. © 2012 Wiley Periodicals, Inc.",
+        "title": "Dialysate quality: New standards require a new approach to compliance",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "VVGTK3ABvO_gzP0sBc89",
+      "_score": 18.121996,
+      "_source": {
+        "content": "The countries of Central and Eastern Europe (CEE) continue their efforts to address environmental problems, including water quality management, in the context of a transition from the centrally planned to market economies. Their economic recovery and further development is the most pressing and central goal since water quality deterioration is nothing but one of the many consequences of the lack of economic progress. Since international assistance to the CEE countries is limited, an early action should be taken to support the establishment of national financial mechanisms and incentives. To improve water quality, the efficiency of water, energy and material use must be increased in the CEE countries; reducing water use is an imperative. Industrial wastewater management strategy shall distinguish between the old and new enterprises. The non-point pollution sources of agricultural character should largely be controlled by preventive measures, applied jointly by land, water and agricultural specialists and managers. Transformation of industry and agriculture and water quality improvements must be undertaken together.",
+        "title": "Some thoughts on the implementation of water quality management strategies for Central and Eastern Europe",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "kU6PK3ABvO_gzP0sXruK",
+      "_score": 18.050425,
+      "_source": {
+        "content": "In recent years, the massive land use changes and urbanization of Shanghai City have coincided with a growing eutrophication and an overall degradation of Huangpu River, with related risks to the city's drinking water supply and economic development. However, there is only limited information to evaluate the spatial and temporal changes to the Huangpu River and its many tributaries. In the present study, 400 citizen scientists were trained to monitor water quality and environmental conditions on a monthly basis over three years in the lower (high urbanized) Huangpu River catchment. Their data were integrated with high resolution land cover data using GIS techniques to characterize water quality dynamics of the Huangpu River system with respect to main environmental drivers. Environmental driver analysis indicated that up-catchment conditions dominate river dynamics while typical urban impacts (first flush, impermeable land cover…) have only limited influence. According to these results, the city's investments to improve wastewater treatment and mitigate lower river impacts need to be extended throughout the catchment to reduce nutrient concentrations that are near or above thresholds for rivers and streams. The positive impact of in-stream vegetation pointed to the possibilities that local scale ecological remediation activities to reduce runoff could be viable approaches to improve river conditions throughout the catchment. © 2017 Elsevier B.V.",
+        "title": "Combining citizen science and land use data to identify drivers of eutrophication in the Huangpu River system",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "z1KUK3ABvO_gzP0sUPV7",
+      "_score": 18.048494,
+      "_source": {
+        "content": "Farmers and government agency watershed specialists use narratives to interpret and give meaning to the tension between farming practices and the impacts of management decisions on the environment. We trace how farmers construct responsibility for water quality management, how farmers and governmental agency staff perceive management decisions that transform the land, and how local knowledge influences tillage practices. In our analysis, we find a pattern of row crop farmers in Iowa claiming individual stewardship and responsibility as social actors, while not holding themselves accountable for personal investment in conservation practices that would reduce water quality impacts. These findings are linked to a discussion of two different approaches to motivate behavior change in agriculture: regulations versus incentives. Increased understanding of the cognitive processes of farmers provides a foundation for developing policies and educational interventions to strengthen long term behavior changes that protect the environment while assuring productivity and profitability in agricultural systems. © Society for Human Ecology.",
+        "title": "Tillage practices, the language of blame, and responsibility for water quality impacts in row crop agriculture",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "5kqHK3ABvO_gzP0sx1cK",
+      "_score": 18.037586,
+      "_source": {
+        "content": "Incentives and Other Innovative Approaches. These recommended ",
+        "title": "Snohomish Basin Salmon Recovery Plan_2005",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_WaterQuality/Literature resources/Riparian Buffer Papers and Summary/KCRiparianBuffersPapers/Snohomish Basin Salmon Recovery Plan_2005.pdf"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "DVKTK3ABvO_gzP0s_K_O",
+      "_score": 18.023102,
+      "_source": {
+        "content": "In its efforts to reduce pollution, Youngstown Sheet and Tube rebuilt its gas cleaning system. Spray-type washers were replaced with high-energy scrubbers in a system that has helped improve the quality of the receiving streams. Some 48,000,000 is being spent for air and water pollution control. The installations include new ideas in filtering and recycling and are designed not only to reduce waste discharges, but also to permit adequate maintenance and thus minimize operating difficulty. The waste treatment is not limited to corrective treatment, but includes facilities in the operating sequences which reduce the volume of water to be handled.",
+        "title": "BLAST FURNACE GAS WASHER RECYCLE SYSTEM",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "aUqHK3ABvO_gzP0srj_u",
+      "_score": 17.984716,
+      "_source": {
+        "content": "4. Use incentives and flexible approaches to encourage ",
+        "title": "Snohomish Basin Salmon Recovery Plan_2005",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_WaterQuality/Literature resources/Riparian Buffer Papers and Summary/KCRiparianBuffersPapers/Snohomish Basin Salmon Recovery Plan_2005.pdf"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "8k6PK3ABvO_gzP0sNJML",
+      "_score": 17.95082,
+      "_source": {
+        "content": "• Sustainability is changing the way we approach traditional problems. • We can take strategic and tactical approaches to bring sustainability to our projects. • TBL and LCA can be effective tools in treatment process selection.",
+        "title": "Sustainability in water treatment process selection",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "sUqHK3ABvO_gzP0smilq",
+      "_score": 17.949553,
+      "_source": {
+        "content": "10.6 Incentives and Other Innovative Approaches       10-23",
+        "title": "Snohomish Basin Salmon Recovery Plan_2005",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_WaterQuality/Literature resources/Riparian Buffer Papers and Summary/KCRiparianBuffersPapers/Snohomish Basin Salmon Recovery Plan_2005.pdf"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "1E6PK3ABvO_gzP0sGnxK",
+      "_score": 17.919886,
+      "_source": {
+        "content": "The Washington Organic Recycling Council (WORC) has created a new website in www.BuildingSoil.org which is an outreach campaign to change standard building practices. It aims to use compost so as to preserve and restore native soil on building sites. This campaign will help builders get by new regulations and change current site practices to satisfy customers. Builders should build healthy soil for several reasons as it will bring more marketable buildings and landscapes; it will better site erosion control; it will reduce the need for water and chemicals; it will bring less storm water runoff and give better water quality; and most importantly, it will satisfy customers.",
+        "title": "Storm water standards: Don't treat building site soil like dirt",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "jFKTK3ABvO_gzP0sXyEQ",
+      "_score": 17.865965,
+      "_source": {
+        "content": "As the principle of a new concept of economic incentive, it was accepted that the omission of certain water quality management activity (e.g., wastewater treatment) causes a hardly quantifyable damage to the environment, whilst on the discharger's side an unlawful financial saving occurs. This saving, which originates from the omission of some obligatory water pollution control investment, the so-called 'unlawful enrichment', is well definable in monetary terms, and can be taken as a basis for comparison in the calculation of fines. Levying fines according to the unlawful enrichment may result in fines which, in a given period, (the economic lifetime of treatment plants) may reach or exceed the illegal savings (capital + operational and maintenance costs). They are thus able to substitute for the otherwise missing economic efficiency of such infrastructural investments on the discharger's side. The new concept of economic incentives affords the possibility of judging the polluting behaviour or each individual discharger against the individual standards imposed, an essential and important factor in water pollution control.Water Pollution Control in Hungary is based on a concept integrating technical, economic and legislative considerations. A new concept of economic incentives affords the possibility of judging the polluting behavior of each individual discharger against the individual standards imposed, an essential and important factor in water pollution control. As a principle, it is accepted that the omission of wastewater treatment causes damage to the environment which is difficult to quantify, whilst on the discharger's side an unlawful financial saving occurs. This saving can be taken as a basis for comparison in the calculation of fines. Levying fines according to the unlawful enrichment may result in fines which, in a given period, (the economic lifetime of treatment plants) may reach or exceed the illegal savings (capital, operational and maintenance costs). They are thus able to substitute for the otherwise missing economic efficiency of such infrastructural investments on the discharger's side.",
+        "title": "Water quality standards as a basis of an economic incentive system",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "7VGSK3ABvO_gzP0sLhmC",
+      "_score": 17.818392,
+      "_source": {
+        "content": "Various CPI companies are investing in effluent treatment projects to overcome the problems of global water shortage and respond positively to the new environmental regulations. Membrane bioreactors (MBRs) are interested in the CPI as companies aim to improve effluent quality and re-use wastewater. BIO-CEL membrane modules are developed for submerged applications to avoid areas of laminar flow and reduce sludge deposition. Biological technologies such as general-purpose anaerobic and aerobic treatment systems are offered to remove sulfur, oxygen, and other substances from water. ABMet is a non-pathogenic microbes process that can remove more than 90% of selenium, arsenic, mercury, nitrate, and other inorganics from wastewater. Absorbsia GTO is a medium to reduce arsenic in drinking water to non-detachable levels, from up to 22 ppb in the raw water to comply with the arsenic limit of 10 ppb.",
+        "title": "Wonderful wastewater",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "cVCRK3ABvO_gzP0szMbz",
+      "_score": 17.768465,
+      "_source": {
+        "content": "This chapter reviews the management of water quality in the Great Barrier Reef (GBR) over the past 15 years. The GBR is listed as a World Heritage site for its outstanding universal value, meeting all four natural criteria for listing. Yet the status of its iconic species and ecosystems continues to decline due to poor water quality, climate change and extreme weather events. Concerted efforts by the Australian and Queensland governments to improve water quality over the last 15 years have failed to deliver measurable improvements to the health of inshore ecosystems. In this period, four phases of bilateral water-quality planning and programs have developed scientifically robust targets and reporting systems. Programs have largely relied on suasive mechanisms to facilitate the adoption of improved agricultural practices with lower water-quality risks. Yet even 100% adoption of improved practices will not achieve the water-quality targets necessary to support the GBR in the face of growing climate change impacts. Our conclusion is that, despite the strong science and partnerships that support reef policy and programs, greater effort is needed to overcome constraints to current management approaches and to employ the additional policy measures required to help sustain the GBR into the future. © 2017 Elsevier Inc. All rights reserved.",
+        "title": "Managing Water Quality for the Great Barrier Reef. Report to the Prime Minister and the Premier of Queensland 2005. Progress to date, challenges and future directions.",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "3lOUK3ABvO_gzP0sjS-h",
+      "_score": 17.753288,
+      "_source": {
+        "content": "Unplanned, compartmentalized approaches for onsite wastewater treatment fail to consider cumulative water resource and pollutant impacts. Planning is the key to cost effective wastewater treatment, regardless of whether the facilities are centralized or decentralized. Centralized facility planning has been required for treatment expansion projects since passage of the Clean Water Act in 1972. We have now arrived at the time to extend the tenets of integrated water resource planning to the millions of homes and businesses served by decentralized facilities. What is needed is an approach that fully integrates the entire range of water use, water resource, and wastewater treatment activities - centralized and decentralized - to guide infrastructure planning efforts, increase treatment performance, improve water quality, and promote efficiency. Individual site evaluations, treatment technology selection, and other micro-scale activities will still be needed, but they will be enhanced significantly by integration with larger scale planning and monitoring efforts and comprehensive analyses of water budgets and cumulative impacts.",
+        "title": "Integrated planning for onsite waste water treatment systems",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "P1GTK3ABvO_gzP0sNvtX",
+      "_score": 17.73736,
+      "_source": {
+        "content": "Public support for environmental policy provides an important foundation for democratic governance. Numerous policy innovations may improve nonpoint source pollution, but little research has examined which types of individuals are likely to support various runoff reduction policies. We conducted a household mail survey of 1136 residents in southern Wisconsin. In general, residents were more likely to support water quality policies if they were communitarians, egalitarians, concerned about water pollution, and perceived water quality as poor. The majority of respondents somewhat to strongly supported all of the seven proposed water quality policies, but opposed relying on voluntary action without government involvement on farms. Residents had higher support for incentives and market-based approaches (carrot policies) than regulation and taxes (stick policies). A more complicated pattern emerged in within-subject comparisons of residents’ views of carrot and stick approaches. Stick approaches polarized respondents by decreasing support among people with individualistic worldviews, while slightly increasing support among people with communitarian worldviews. Residents with an agricultural occupation were more likely to support voluntary, non-governmental approaches for reducing agricultural runoff, and were also more likely to support regulation for reducing urban lawn runoff. This research highlights the dominant role of cultural worldviews and the secondary roles of water pollution concern, perceived water quality, and self-interest in explaining support for diverse policies to reduce nonpoint source pollution. © 2017",
+        "title": "Public support for carrot, stick, and no-government water quality policies",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "KVKTK3ABvO_gzP0sWh3T",
+      "_score": 17.733482,
+      "_source": {
+        "content": "Because of the financial situation in many South American countries efforts have been made to reduce capital and operation and maintenance costs in the field of water supply. Additionally, due to unavailability of skilled labour, appropriate treatment processes have been studied intensively and applied in many South American countries. The document is a summary concerning water sources quality criteria, drinking water standards and recent innovations in water-treatment technology. -from Author",
+        "title": "Water-supply problems and treatment technologies in developing countries of South America",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "aE-QK3ABvO_gzP0sH2wR",
+      "_score": 17.724749,
+      "_source": {
+        "content": "Collaborative watershed management has been heavily promoted and widely implemented to address a variety of natural resource concerns, resulting in the adoption and adaptation of the approach to management by regulatory agencies. Although several characteristics or indicators of success for watershed partnerships have been identified in the literature, these often portray a direct cause and effect relationship between partnership characteristics and outcomes. However, partnerships involve dynamic processes that can be influenced by both form and function (internally and externally) throughout various stages of the partnerships' existence. Our study presents an evaluation framework from the group process and evaluation literature to highlight the importance of evaluating 'intermediate measures of partnership effectiveness' in watershed partnerships, using the case of Michigan's voluntary watershed-based stormwater permit. Given the increasing use of watershed partnerships in a regulatory setting that is constantly in flux and the difficulty in assessing the effects of such groups on water quality, results suggest the utility of 'intermediate measures of partnership effectiveness' for assessing partnership process in order to provide ongoing feedback and incentives to ensure long-term success. © IWA Publishing 2016.",
+        "title": "Collaboration as process: A case study of Michigan's watershed permit",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "N06PK3ABvO_gzP0sOprT",
+      "_score": 17.712246,
+      "_source": {
+        "content": "Mining of low grade deposits along with the necessity to design and operate flotation plants with high throughput presents unique metallurgical and environmental challenges that need to be addressed to reduce project risks, improve project economics and to sustain the profitability of operations over the life of a mine. Some of the key challenges include poor recovery of valuables and concentrate quality issues due to complex mineralogy, the need to use poor quality water such as brackish or sea water, reduce environmental impact from the process, integrate flotation with hydrometallurgy to maximize precious metals recovery, escalation of capital and operating costs, use of unproven technology and constant use of larger equipment, high ore variability, worldwide constraints on resource availability and an ever increasing need for reliable metallurgical input to financial models to evaluate economic viability of projects. The need to develop effective solutions to these problems in a short time frame is becoming a key to the success of any new project and for sustaining the profitability of a mining operation. An integrated multi-disciplinary approach to problem solving is crucial with the need for a more lateral thinking along with strategic partnerships and collaboration involving the right players. This paper presents some of the key findings based on experiences from a large number of challenging projects and operations focused on solving complex flotation problems.",
+        "title": "Developing solutions to complex flotation problems",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "v1GSK3ABvO_gzP0s8sGG",
+      "_score": 17.7006,
+      "_source": {
+        "content": "Reports on upgrading of the Ashford Common water treatment works to feed the London Water Ring Main. New processes will include rapid gravity filters to increase throughput, ozonation to improve taste and quality, and granular acitvated carbon filters to reduce pesticide levels. The process stream is described together with project design and construction, and the supervisory control and data acquisition (SCADA) system. (J.M.McLaughlin)",
+        "title": "Ashford common",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "JlGSK3ABvO_gzP0sQSqh",
+      "_score": 17.689137,
+      "_source": {
+        "content": "A lot of initiatives for improving the water quality were developed for 15 years in Brittany in response to the European policy and the ecologist requests. This implies the partnerships of farmer organisations, organisms in charge of rural affairs and research and formation institutes. The paper presents the 2 major aspects of a possible original and efficient water policy, in the framework of the water management at the catchment scale: 1) developing new methods of water management, including farming activities, to improve the water quality; 2) developing new methods of pressure and impact assessment taking into account the complexity or a system submitted to a recent and light water policy, a strong hydrological variability and a long response time. In spite of the co-existence of all the constituents or a coherent policy, this policy seems difficult to build up. Current water quality shows the interest and limits of incentive policy.",
+        "title": "An innovative management of rural basin to recover the water quality? The Brittany case [Vers une gestion innovante des bassins versants ruraux pour reconquérir la qualité de l'eau? Le cas de la Bretagne]",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "qlOUK3ABvO_gzP0sfB8Q",
+      "_score": 17.68816,
+      "_source": {
+        "content": "Prototype evaluations of alternative land development approaches indicate that storm water flow rates can be reduced by as much as 50%. Volumes can also be reduced, peak flows delayed and storm water quality improved. This paper discusses a new approach to design stage consideration of storm water and the potential and challenges of implementing a computer based planning system to include storm water impacts as part of urban development project review. Development and use of such a system in a watershed could result in assisting designers and planners to reduce storm water impacts of new developments. This approach, implemented throughout a watershed, could contribute toward saving lives and reducing property damage and economic dislocations associated with major floods. An agenda for further system and application development is identified.",
+        "title": "Reducing downstream storm water impacts using design stage modeling in urban development",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "MlCRK3ABvO_gzP0spaNX",
+      "_score": 17.682095,
+      "_source": {
+        "content": "Financial restrictions faced by most cities today make the cost of new water treatment facilities prohibitive, and the renovation of existing treatment facilities more appealing. A thorough investigation of an existing plant may show a new facility to be more cost effective. However, in many instances investigation will show that the old plant can be upgraded with increased capacity and improved quality for less cost.",
+        "title": "UPGRADING OF EXISTING WATER TREATMENT PLANTS.",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "0k-QK3ABvO_gzP0sPYfw",
+      "_score": 17.678217,
+      "_source": {
+        "content": "Combined sewer overflows are major sources of water pollution problems, but even discharges of stormwater alone can seriously affect water quality. Current approaches involve control of overflows, treatment, and combinations of the two. Control may involve maximizing treatment with existing facilities, control of infiltration and extraneous inflows, surface sanitation and management, as well as flow regulation and storage. A number of treatment methods have been evaluated including high rate screening and microstraining, ultra high rate filtration, dissolved air flotation, physical/chemical treatment, and modified biological processes. A swirl flow regulator/solids separator of annular shape construction with no moving parts has been highly developed. High rate disinfection methods including new disinfectants have been applied. Promising approaches involve intergrated use of controls and treatment.",
+        "title": "URBAN RUNOFF POLLUTION CONTROL - STATE-OF-THE-ART",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "jUWBK3ABvO_gzP0shXc_",
+      "_score": 17.642944,
+      "_source": {
+        "content": "impacts or ends achieved by working in partnerships (see ",
+        "title": "National Acadamies of Science review of Landscape Conservation Collaboratives",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_Biodiversity/General Biodiversity Team/Biodiv_References/National Acadamies of Science review of Landscape Conservation Collaboratives.pdf"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "EE6OK3ABvO_gzP0svC1x",
+      "_score": 17.629406,
+      "_source": {
+        "content": "The US administration has released a national clean water framework on April 27, 2011, recognizing the importance of clean water and healthy watersheds to the economy, environment, and communities. The framework emphasizes the importance of partnerships and coordination with states, local communities, stakeholders, and the public to protect public health and water quality, and promote the nation's energy and economic security. The administration's framework outlines a series of actions that include innovative partnerships and programs to improve water quality and water efficiency and initiatives to revitalize communities and economies by restoring rivers and critical watersheds. The administration is safeguarding clean water by promoting innovative partnerships, enhancing communities and economies by restoring important water bodies, and innovating for more water efficient communities. The administration is using the latest science and research to improve water policies and programs and identify and address emerging pollution challenges.",
+        "title": "Obama administration affirms comprehensive commitment to clean water",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "QEqHK3ABvO_gzP0srj_F",
+      "_score": 17.620367,
+      "_source": {
+        "content": "5. Use incentives and flexible approaches to encourage wetland protection. ",
+        "title": "Snohomish Basin Salmon Recovery Plan_2005",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_WaterQuality/Literature resources/Riparian Buffer Papers and Summary/KCRiparianBuffersPapers/Snohomish Basin Salmon Recovery Plan_2005.pdf"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "yEWBK3ABvO_gzP0sjYBy",
+      "_score": 17.593616,
+      "_source": {
+        "content": "agency collaboration and partnerships and seek to reduce, ",
+        "title": "National Acadamies of Science review of Landscape Conservation Collaboratives",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_Biodiversity/General Biodiversity Team/Biodiv_References/National Acadamies of Science review of Landscape Conservation Collaboratives.pdf"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "A1CRK3ABvO_gzP0sNT4b",
+      "_score": 17.579163,
+      "_source": {
+        "content": "The forecasting for credit quality improvements in chemical industry of the US for 2004 is presented. To improve the financial profile, the companies have concentrated on cost-reduction programs, efficient working capital management, and strategic moves to control higher cost production facilities. The over-leveraging of balance sheets during the exuberant capital spending and M&A boom of the late 1990s has been improved. But, debt burdens may limit some companies from taking advisable strategic steps involving M&A activity, joint ventures and long-term contractual moves for feedstocks. The year 2004 will bring better financial performance for most of the companies as demand is increasing in the industry.",
+        "title": "Chemical Credit Outlook for 2004 Shows Signs of Solid Improvement",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "ulCRK3ABvO_gzP0sIy-y",
+      "_score": 17.57733,
+      "_source": {
+        "content": "In this paper, a new game theoretic methodology is developed for interbasin water transfer management with regard to economic, equity, and environmental criteria. The main objective is to supply the competing users in a fair way, while the efficiency and environmental sustainability criteria are satisfied and the utilities of water users are incorporated. Firstly, an optimization model is developed to proportionally allocate water to the competing users in water donor and receiving basins based on their water demands. Secondly, for different coalitions of water users, the water shares of the coalitions are determined using an optimization model with economic objectives regarding the physical and environmental constraints of the system. In order to satisfy waterquality requirements, the impacts of decreasing the instream flow in donor basin are estimated using a water-quality simulation model, and the required treatment levels for effluents discharged into the river, downstream of the water transfer point are determined. Finally, to achieve equity and to provide sufficient incentives for water users to participate in the cooperation, some cooperative game theoretic approaches are utilized for reallocation of net benefits to water users. This model is applied to a large-scale interbasin water allocation problem including two different basins struggling with water scarcity in Iran. The results show that this model can be utilized as an effective tool for optimal interbasin water allocation management involving stakeholders with conflicting objectives subject to physical and environmental constraints. © Springer Science + Business Media B.V. 2009.",
+        "title": "A game theoretic approach for interbasin water resources allocation considering the water quality issues",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "V0uIK3ABvO_gzP0s8XJH",
+      "_score": 17.570324,
+      "_source": {
+        "content": "4. \t Creative approaches to addressing apparent social conflicts. For example, concernse ",
+        "title": "FEMAT_1993_BroadReview_Report",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_WaterQuality/Literature resources/Riparian Buffer Papers and Summary/KCRiparianBuffersPapers/FEMAT_1993_BroadReview_Report.pdf"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "50qHK3ABvO_gzP0sx1cL",
+      "_score": 17.558594,
+      "_source": {
+        "content": "policies and ideas are creative approaches to salmon recovery efforts that ",
+        "title": "Snohomish Basin Salmon Recovery Plan_2005",
+        "path": "drive-download-20200127T161340Z-001/Case studies/Phase1_WaterQuality/Literature resources/Riparian Buffer Papers and Summary/KCRiparianBuffersPapers/Snohomish Basin Salmon Recovery Plan_2005.pdf"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "Y1KTK3ABvO_gzP0sZSdC",
+      "_score": 17.550762,
+      "_source": {
+        "content": "The development of new dredging techniques that can reduce, or at least predict, the environmental impacts, is in high demand by governments in developing countries. In the present work, a new methodology was developed, to evaluate the level of metals contamination (i.e. cadmium, lead and zinc) of the water column, during a dredging operation. This methodology was used to evaluate the impacts of the construction of a new maritime terminal in Sepetiba Bay, Brazil. The methodology quantifies the amount of resuspended sediments and calculates the expected contaminants concentrations in the water column. The results indicated that sediment quality criteria were not compatible with water quality criteria, because the dredging of contaminated sediments does not necessarily yield contaminated water. It is suggested that the use of sediment quality criteria for dredging operations might be abandoned, and the methodology presented in this study applied to assess dredging's environmental impacts, predicting water contamination levels. © 2016 Elsevier Ltd.",
+        "title": "Predicting pollutant concentrations in the water column during dredging operations: Implications for sediment quality criteria",
+        "path": "water_quality.csv"
+      }
+    },
+    {
+      "_index": "all",
+      "_type": "doc",
+      "_id": "DFCRK3ABvO_gzP0sgoOB",
+      "_score": 17.54639,
+      "_source": {
+        "content": "This paper reports on a study to compare the technological trajectory of drinking water treatment for the past 30 years, from the 1980s to the 2010s, in South Korea, Thailand, and Lao PDR. There are significant differences in water treatment technology in the three countries, resulting from factors such as national regulations, economic conditions, and water policies. These act either as drivers or as barriers for water service development in the three countries. South Korea has introduced various new treatment technologies since the 1990s for meeting stringent regulations and for improving tap water quality and safety. Thailand and Lao PDR maintained similar treatment methods without great changes, because they focused more on quantity expansion for meeting water demand than on quality improvement. In addition, lax regulations and financial constraints acted as barriers to the development of water treatment technology in the two countries. Thailand is now trying to apply new treatment technologies, such as online monitoring, mechanical sludge collector, and dual-media filter, as water quality has grown in importance, and Lao PDR has developed new water supply systems for increasing water supply coverage. This study explored changing patterns of treatment technology in the three countries, and offered lessons for developing water treatment technology in the region. © IWA Publishing 2016.",
+        "title": "Technology development trajectory for drinking water treatment: A comparative study between South Korea, Thailand, and Lao PDR",
+        "path": "water_quality.csv"
+      }
+    }
+  ],
+  "query": "financial incentives developed bring new partnerships creative approaches reduce water quality impacts improve treatment?"
+}
+// GET http://localhost:8080/q?key=How can financial incentives be developed that bring new partnerships and creative approaches to reduce water quality impacts and improve treatment?&nsw=true
+// HTTP/1.1 200 OK
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 100793
+// Date: Tue, 03 Mar 2020 05:30:43 GMT
+// Server: Python/3.7 aiohttp/3.6.2
+// Request duration: 0.024414s
+#+END_SRC
+
+** owl query
+
+*** api
+
+#+begin_src restclient
+  GET /pq?key=search text
+#+end_src
+
+*** example
+
+#+begin_src restclient
+  GET http://localhost:8080/pq?key=Who are the users and stakeholders of water quality models and information?
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC js
+[
+  {
+    "pid": "http://www.sdsconsortium.org/schemas/sds-okn.owl#WQIntv000060002",
+    "firstname": "Sheelagh",
+    "lastname": "McCarthy",
+    "job_title": "Manager",
+    "homepage": "https://waecy.maps.arcgis.com/apps/MapSeries/index.html?appid=907dd54271f44aa0b1f08efd7efc4e30",
+    "works_at": {
+      "pid": "",
+      "label": "",
+      "url": "",
+      "may_answer": "",
+      "creator": ""
+    },
+    "works_on": {
+      "pid": "http://www.sdsconsortium.org/schemas/sds-okn.owl#WQIntv000060018",
+      "label": "Puget Sound Nutrient Source Production project",
+      "url": "",
+      "may_answer": "http://www.sdsconsortium.org/schemas/sds-okn.owl#WQIntv00006_NTKQ.C1.24",
+      "creator": ""
+    },
+    "may_answer": ""
+  },
+  {
+    "pid": "http://www.sdsconsortium.org/schemas/sds-okn.owl#WQIntv000060004",
+    "firstname": "Chris",
+    "lastname": "Harvey",
+    "job_title": "Scientist",
+    "homepage": "https://www.nwfsc.noaa.gov/contact/display_staffprofile.cfm?staffid=154",
+    "works_at": {
+      "pid": "",
+      "label": "",
+      "url": "",
+      "may_answer": "",
+      "creator": ""
+    },
+    "works_on": {
+      "pid": "http://www.sdsconsortium.org/schemas/sds-okn.owl#WQIntv000060010",
+      "label": "Eyes Over Puget Sound",
+      "url": "",
+      "may_answer": "http://www.sdsconsortium.org/schemas/sds-okn.owl#WQIntv00006_NTKQ.C1.32",
+      "creator": "http://www.sdsconsortium.org/schemas/sds-okn.owl#WQIntv000060004"
+    },
+    "may_answer": ""
+  }
+]
+// GET http://localhost:8080/pq?key=Who are the users and stakeholders of water quality models and information?
+// HTTP/1.1 200 OK
+// Content-Type: application/json; charset=utf-8
+// Content-Length: 1259
+// Date: Tue, 03 Mar 2020 05:24:32 GMT
+// Server: Python/3.7 aiohttp/3.6.2
+// Request duration: 0.004107s
+#+END_SRC
+
 * Methodology
 
 ** Search
@@ -87,7 +1292,9 @@ https://www.elastic.co/guide/en/elasticsearch/reference/current/targz.html
 
 ** Search Response
 
-At ~server.py~, the search function: https://github.com/nasyxx/nsf4_backend/blob/master/server.py#L63-L87.
+At ~server.py~, the search function:
+
+https://github.com/nasyxx/nsf4_backend/blob/master/server.py#L78-L103.
 
 First part of it is ~res~ from Elasticsearch response.  We now in this function
 only use the ~res["hits"]["total"]~ and the ~res["hits"]["hits"]~.
@@ -103,6 +1310,13 @@ middleware.  You can wrap it.
 ** Rate
 
 At ~server.py~, the rate function:
-https://github.com/nasyxx/nsf4_backend/blob/master/server.py#L98-L114.
+
+https://github.com/nasyxx/nsf4_backend/blob/master/server.py#L114-L134.
 
 If success, then response 0, otherwise response 1.
+
+** Owl
+
+At ~owl.py~, also the rate function:
+
+https://github.com/nasyxx/nsf4_backend/blob/master/server.py#L158-L164.
