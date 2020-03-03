@@ -47,7 +47,7 @@ from functools import lru_cache
 from itertools import chain
 
 # Others
-from rdflib import Graph, URIRef
+from rdflib import Graph
 
 # Config
 from config import OWLF
@@ -59,6 +59,7 @@ CACHE_SIZE = 2 << 16  # noqa: WPS432
 EMPTYS = ""
 PID = "pid"
 QID = "qid"
+PERSONS = set()
 G = Graph().parse(OWLF.as_posix(), format="n3")  # noqa: WPS111
 
 PO = NamedTuple(
@@ -258,16 +259,16 @@ def query_by_address(qid: str) -> Set[str]:
     )
 
 
-def distinct(person: Person) -> Person:
+def distinct(person: Person) -> bool:
     """Distinct person by make their may_answer to EMPTYS."""
-    return Person(**dict(person._asdict(), may_answer=EMPTYS))
+    return not bool(person.pid in PERSONS or PERSONS.add(person.pid))
 
 
 @lru_cache(maxsize=CACHE_SIZE)
 def query(query_str: str) -> Set[Person]:
     """Query owl graph."""
     return set(
-        map(
+        filter(
             distinct,
             chain.from_iterable(
                 map(
