@@ -78,6 +78,7 @@ https://www.elastic.co/guide/en/elasticsearch/reference/current/targz.html
 #+begin_src restclient :exports both
   GET http://localhost:8080/q?key=How can financial incentives be developed that bring new partnerships and creative approaches to reduce water quality impacts and improve treatment?&nsw=true
 #+end_src
+#+HTML: <details><summanry>Search query example</summary>
 
 #+RESULTS:
 #+BEGIN_SRC js
@@ -1196,6 +1197,8 @@ https://www.elastic.co/guide/en/elasticsearch/reference/current/targz.html
 // Request duration: 0.013458s
 #+END_SRC
 
+#+HTML: </details>
+
 ** owl query
 
 *** api
@@ -1209,6 +1212,8 @@ https://www.elastic.co/guide/en/elasticsearch/reference/current/targz.html
 #+begin_src restclient :exports both
   GET http://localhost:8080/pq?key=Who are the users and stakeholders of water quality models and information?
 #+end_src
+
+#+HTML: <details><summanry>OWL query example</summary>
 
 #+RESULTS:
 #+BEGIN_SRC js
@@ -1266,6 +1271,8 @@ https://www.elastic.co/guide/en/elasticsearch/reference/current/targz.html
 // Server: Python/3.7 aiohttp/3.6.2
 // Request duration: 0.004666s
 #+END_SRC
+
+#+HTML: </details>
 
 * Methodology
 
