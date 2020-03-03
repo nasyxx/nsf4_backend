@@ -88,6 +88,12 @@ Person = NamedTuple(
 )
 
 
+@lru_cache(maxsize=CACHE_SIZE)
+def others_dict() -> Dict[str, PO]:
+    """Others dict format."""
+    return dict(map(lambda other: (other.pid, other), build_other()))
+
+
 def person_to_dict(person: Person) -> Dict[str, Union[str, Dict[str, str]]]:
     """Person to dict."""
     return dict(
@@ -98,25 +104,21 @@ def person_to_dict(person: Person) -> Dict[str, Union[str, Dict[str, str]]]:
 
 
 @lru_cache(maxsize=CACHE_SIZE)
-def build_other() -> Dict[URIRef, PO]:
+def build_other() -> Set[PO]:
     """Build project and organization informatino."""
-    return dict(
+    return set(
         map(
             lambda ans: (
-                lambda ansd: (
-                    ansd.get(PID, EMPTYS),
-                    PO(
-                        str(ansd.get(PID, EMPTYS)),
-                        str(
-                            ansd.get(
-                                "name",
-                                ansd.get("title", ansd.get("label", "")),
-                            )
-                        ),
-                        str(ansd.get("url", EMPTYS)),
-                        str(ansd.get("qid", EMPTYS)),
-                        str(ansd.get("creator", EMPTYS)),
+                lambda ansd: PO(
+                    str(ansd.get(PID, EMPTYS)),
+                    str(
+                        ansd.get(
+                            "name", ansd.get("title", ansd.get("label", "")),
+                        )
                     ),
+                    str(ansd.get("url", EMPTYS)),
+                    str(ansd.get("qid", EMPTYS)),
+                    str(ansd.get("creator", EMPTYS)),
                 )
             )(ans.asdict()),
             G.query(
@@ -136,7 +138,7 @@ def build_other() -> Dict[URIRef, PO]:
                 "filter "
                 "(regex(str(?other), 'http://semanticscience.org/resource'))"
                 "} . "
-                "?pid sdso:mayAnswer ?qid . "
+                "OPTIONAL {?pid sdso:mayAnswer ?qid} "
                 "OPTIONAL {?pid <http://xmlns.com/foaf/0.1/name> ?name} "
                 "OPTIONAL {?pid <http://purl.org/dc/terms/title> ?title} "
                 "OPTIONAL {?pid rdfs:label ?label} "
@@ -172,8 +174,12 @@ def build_person() -> Set[Person]:
                         )
                     ),
                     str(person.get("homepage", EMPTYS)),
-                    build_other().get(person.get("works_at"), EPO),
-                    build_other().get(person.get("works_on"), EPO),
+                    others_dict().get(
+                        str(person.get("works_at", EMPTYS)), EPO
+                    ),
+                    others_dict().get(
+                        str(person.get("works_on", EMPTYS)), EPO
+                    ),
                     str(person.get("qid", EMPTYS)),
                 )
             )(ans.asdict()),
@@ -207,8 +213,8 @@ def build_person() -> Set[Person]:
 def filter_other(other: PO) -> Generator[Person, None, None]:
     """Filter the person from others."""
     yield from filter(
-        lambda person: person.works_at == other.pid
-        or person.works_on == other.pid
+        lambda person: person.works_at.pid == other.pid
+        or person.works_on.pid == other.pid
         or person.pid == other.creator,
         build_person(),
     )
@@ -220,9 +226,7 @@ def filtered(qid: str) -> Generator[Person, None, None]:
         filter(lambda person: person.may_answer == qid, build_person()),
         *map(
             filter_other,
-            filter(
-                lambda other: other.may_answer == qid, build_other().values()
-            ),
+            filter(lambda other: other.may_answer == qid, build_other()),
         ),
     )
 
