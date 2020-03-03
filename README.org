@@ -75,7 +75,7 @@ https://www.elastic.co/guide/en/elasticsearch/reference/current/targz.html
 
 *** example
 
-#+begin_src restclient
+#+begin_src restclient :exports both
   GET http://localhost:8080/q?key=How can financial incentives be developed that bring new partnerships and creative approaches to reduce water quality impacts and improve treatment?&nsw=true
 #+end_src
 
@@ -1191,9 +1191,9 @@ https://www.elastic.co/guide/en/elasticsearch/reference/current/targz.html
 // HTTP/1.1 200 OK
 // Content-Type: application/json; charset=utf-8
 // Content-Length: 100793
-// Date: Tue, 03 Mar 2020 05:30:43 GMT
+// Date: Tue, 03 Mar 2020 05:38:47 GMT
 // Server: Python/3.7 aiohttp/3.6.2
-// Request duration: 0.024414s
+// Request duration: 0.013458s
 #+END_SRC
 
 ** owl query
@@ -1206,7 +1206,7 @@ https://www.elastic.co/guide/en/elasticsearch/reference/current/targz.html
 
 *** example
 
-#+begin_src restclient
+#+begin_src restclient :exports both
   GET http://localhost:8080/pq?key=Who are the users and stakeholders of water quality models and information?
 #+end_src
 
@@ -1262,9 +1262,9 @@ https://www.elastic.co/guide/en/elasticsearch/reference/current/targz.html
 // HTTP/1.1 200 OK
 // Content-Type: application/json; charset=utf-8
 // Content-Length: 1259
-// Date: Tue, 03 Mar 2020 05:24:32 GMT
+// Date: Tue, 03 Mar 2020 05:40:31 GMT
 // Server: Python/3.7 aiohttp/3.6.2
-// Request duration: 0.004107s
+// Request duration: 0.004666s
 #+END_SRC
 
 * Methodology
