@@ -254,17 +254,25 @@ def query_by_address(qid: str) -> Set[str]:
     )
 
 
+def distinct(person: Person) -> Person:
+    """Distinct person by make their may_answer to EMPTYS."""
+    return Person(**dict(person._asdict(), may_answer=EMPTYS))
+
+
 @lru_cache(maxsize=CACHE_SIZE)
 def query(query_str: str) -> Set[Person]:
     """Query owl graph."""
     return set(
-        chain.from_iterable(
-            map(
-                filtered,
-                (
-                    lambda ans: ans
-                    | set(chain.from_iterable(map(query_by_address, ans)))
-                )(query_by_ntktext(query_str)),
-            )
+        map(
+            distinct,
+            chain.from_iterable(
+                map(
+                    filtered,
+                    (
+                        lambda ans: ans
+                        | set(chain.from_iterable(map(query_by_address, ans)))
+                    )(query_by_ntktext(query_str)),
+                )
+            ),
         )
     )
