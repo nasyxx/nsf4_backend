@@ -267,6 +267,7 @@ def distinct(person: Person) -> bool:
 @lru_cache(maxsize=CACHE_SIZE)
 def query(query_str: str) -> Set[Person]:
     """Query owl graph."""
+    PERSONS.clear()
     return set(
         filter(
             distinct,
