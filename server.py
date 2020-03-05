@@ -52,7 +52,6 @@ from aiohttp import web
 from aiohttp.web import Request, Response
 from elasticsearch import Elasticsearch
 from loguru import logger
-from owl import person_to_dict
 from owl import query as owl_query
 
 # Config
@@ -161,7 +160,9 @@ async def get_person_query_handle(req: Request) -> Response:
     logger.info(
         f"{req.cookies.get(COOKIEN, 'Unknow User')}" f"\tsearch_person\t|{key}"
     )
-    return web.json_response(list(map(person_to_dict, owl_query(key))))
+    return web.json_response(
+        list(map(lambda person: person._asdict(), owl_query(key)))
+    )
 
 
 async def post_query_handle(req: Request) -> Response:
