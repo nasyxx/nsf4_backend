@@ -42,9 +42,8 @@ Which to you shall seem probable, of every
                           -- The Tempest
 """
 # Standard Library
-import re
-from functools import lru_cache
-from itertools import chain
+from functools import lru_cache, reduce
+from operator import or_
 
 # Others
 from rdflib import Graph
@@ -53,26 +52,19 @@ from rdflib import Graph
 from config import OWLF
 
 # Types
-from typing import Dict, Generator, NamedTuple, Set, Union
+from typing import Dict, NamedTuple, Set
 
 CACHE_SIZE = 2 << 16  # noqa: WPS432
-EMPTYS = ""
+EMPTY = ""
 PID = "pid"
-QID = "qid"
-PERSONS = set()
+
 G = Graph().parse(OWLF.as_posix(), format="n3")  # noqa: WPS111
 
-PO = NamedTuple(
-    "PO",
-    [
-        (PID, str),
-        ("label", str),
-        ("url", str),
-        ("may_answer", str),
-        ("creator", str),
-    ],
+Other = NamedTuple(
+    "Other", [(PID, str), ("name", str), ("url", str), ("decs", str)],
 )
-EPO = PO(EMPTYS, EMPTYS, EMPTYS, EMPTYS, EMPTYS)
+
+EO = Other(EMPTY, EMPTY, EMPTY, EMPTY)
 
 Person = NamedTuple(
     "Person",
@@ -82,48 +74,45 @@ Person = NamedTuple(
         ("lastname", str),
         ("job_title", str),
         ("homepage", str),
-        ("works_at", PO),
-        ("works_on", PO),
-        ("may_answer", str),
+        ("works_at_name", str),
+        ("works_at_url", str),
+        ("works_on_name", str),
+        ("works_on_url", str),
+        ("works_on_decs", str),
+        ("from_", str),
     ],
+)
+
+EP = Person(
+    EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY
 )
 
 
 @lru_cache(maxsize=CACHE_SIZE)
-def others_dict() -> Dict[str, PO]:
-    """Others dict format."""
-    return dict(map(lambda other: (other.pid, other), build_other()))
-
-
-def person_to_dict(person: Person) -> Dict[str, Union[str, Dict[str, str]]]:
-    """Person to dict."""
+def build_others() -> Dict[str, Other]:
+    """Build others cache."""
     return dict(
-        person._asdict(),
-        works_at=person.works_at._asdict(),
-        works_on=person.works_on._asdict(),
-    )
-
-
-@lru_cache(maxsize=CACHE_SIZE)
-def build_other() -> Set[PO]:
-    """Build project and organization informatino."""
-    return set(
         map(
-            lambda ans: (
-                lambda ansd: PO(
-                    str(ansd.get(PID, EMPTYS)),
-                    str(
-                        ansd.get(
-                            "name", ansd.get("title", ansd.get("label", "")),
-                        )
+            lambda other: (
+                lambda otherd: (
+                    str(otherd.get(PID, EMPTY)),
+                    Other(
+                        str(otherd.get(PID, EMPTY)),
+                        str(
+                            otherd.get(
+                                "name",
+                                otherd.get(
+                                    "title", otherd.get("label", EMPTY)
+                                ),
+                            )
+                        ),
+                        str(otherd.get("url", otherd.get("url2", EMPTY))),
+                        str(otherd.get("desc", EMPTY)),
                     ),
-                    str(ansd.get("url", EMPTYS)),
-                    str(ansd.get("qid", EMPTYS)),
-                    str(ansd.get("creator", EMPTYS)),
                 )
-            )(ans.asdict()),
+            )(other.asdict()),
             G.query(
-                "select distinct ?pid ?name ?title ?label ?url ?qid ?creator "
+                "select distinct ?pid ?name ?title ?label ?url ?url2 ?desc "
                 "where {"
                 "{?pid rdf:type <http://xmlns.com/foaf/0.1/Organization>} "
                 "union {"
@@ -139,15 +128,18 @@ def build_other() -> Set[PO]:
                 "filter "
                 "(regex(str(?other), 'http://semanticscience.org/resource'))"
                 "} . "
-                "OPTIONAL {?pid sdso:mayAnswer ?qid} "
-                "OPTIONAL {?pid <http://xmlns.com/foaf/0.1/name> ?name} "
-                "OPTIONAL {?pid <http://purl.org/dc/terms/title> ?title} "
-                "OPTIONAL {?pid rdfs:label ?label} "
-                "OPTIONAL {"
+                "optional {?pid sdso:mayAnswer ?qid} "
+                "optional {?pid <http://xmlns.com/foaf/0.1/name> ?name} "
+                "optional {?pid <http://purl.org/dc/terms/title> ?title} "
+                "optional {?pid rdfs:label ?label} "
+                "optional {"
                 "?pid <http://dev.poderopedia.com/vocab/hasURL> ?url"
                 "} "
-                "OPTIONAL {"
-                "?pid <http://purl.org/dc/terms/creator> ?creator"
+                "optional {"
+                "?pid sdso:hasDocumentURL ?url2"
+                "} "
+                "optional {"
+                "?pid <http://purl.org/dc/terms/description> ?desc"
                 "} "
                 "}",
             ),
@@ -156,54 +148,61 @@ def build_other() -> Set[PO]:
 
 
 @lru_cache(maxsize=CACHE_SIZE)
-def build_person() -> Set[Person]:
-    """Build person infomation."""
-    return set(
+def get_works(works_at_id: str, works_on_id: str) -> Dict[str, str]:
+    """Get works information by works pid."""
+    return (
+        lambda works_at, works_on: {
+            "works_at_name": works_at.name,
+            "works_at_url": works_at.url,
+            "works_on_name": works_on.name,
+            "works_on_url": works_on.url,
+            "works_on_decs": works_on.decs,
+        }
+    )(build_others().get(works_at_id, EO), build_others().get(works_on_id, EO))
+
+
+@lru_cache(maxsize=CACHE_SIZE)
+def build_persons() -> Dict[str, Person]:
+    """Build persons cache."""
+    return dict(
         map(
-            lambda ans: (
-                lambda person: Person(
-                    str(person.get(PID, EMPTYS)),
-                    str(person.get("firstname", EMPTYS)),
-                    str(person.get("lastname", EMPTYS)),
-                    " ".join(
-                        re.findall(  # handle
-                            # Scientist-Ecosystem or
-                            # ScientistEcosystem to
-                            r"([A-Z][a-z,]*)",
-                            #  Scientist Ecosystem
-                            str(person.get("job_title", EMPTYS)),
+            lambda person: (
+                lambda persond: (
+                    str(persond.get(PID, EMPTY)),
+                    (
+                        Person(
+                            str(persond.get(PID, EMPTY)),
+                            str(persond.get("firstname", EMPTY)),
+                            str(persond.get("lastname", EMPTY)),
+                            str(persond.get("job_title", EMPTY)),
+                            str(persond.get("homepage", EMPTY)),
+                            from_=EMPTY,
+                            **get_works(
+                                str(persond.get("works_at", EMPTY)),
+                                str(persond.get("works_on", EMPTY)),
+                            ),
                         )
                     ),
-                    str(person.get("homepage", EMPTYS)),
-                    others_dict().get(
-                        str(person.get("works_at", EMPTYS)), EPO
-                    ),
-                    others_dict().get(
-                        str(person.get("works_on", EMPTYS)), EPO
-                    ),
-                    str(person.get("qid", EMPTYS)),
                 )
-            )(ans.asdict()),
+            )(person.asdict()),
             G.query(
                 "select ?pid "
                 "?firstname ?lastname ?job_title "
-                "?homepage ?label ?works_on ?works_at ?qid "
+                "?homepage ?works_on ?works_at ?qid "
                 "where {"
                 "?pid rdf:type <http://xmlns.com/foaf/0.1/Person> . "
-                "OPTIONAL {?pid sdso:holdsJobTitle ?job_title } "
-                "OPTIONAL {?pid sdso:worksAt ?works_at } "
-                "OPTIONAL {?pid sdso:worksOn ?works_on } "
-                "OPTIONAL {"
+                "optional {?pid sdso:holdsJobTitle ?job_title } "
+                "optional {?pid sdso:worksAt ?works_at } "
+                "optional {?pid sdso:worksOn ?works_on } "
+                "optional {"
                 "?pid <http://xmlns.com/foaf/0.1/firstName> ?firstname "
                 "} "
-                "OPTIONAL {"
+                "optional {"
                 "?pid <http://xmlns.com/foaf/0.1/homepage> ?homepage "
                 "} "
-                "OPTIONAL {"
+                "optional {"
                 "?pid <http://xmlns.com/foaf/0.1/lastName> ?lastname "
                 "} "
-                "OPTIONAL {?pid rdfs:label ?label} "
-                "OPTIONAL {?pid sdso:mayAnswer ?qid}"
                 "} "
                 "order by ?pid"
             ),
@@ -211,74 +210,92 @@ def build_person() -> Set[Person]:
     )
 
 
-def filter_other(other: PO) -> Generator[Person, None, None]:
-    """Filter the person from others."""
-    yield from filter(
-        lambda person: person.works_at.pid == other.pid
-        or person.works_on.pid == other.pid
-        or person.pid == other.creator,
-        build_person(),
-    )
-
-
-def filtered(qid: str) -> Generator[Person, None, None]:
-    """Filtered persons."""
-    yield from chain(
-        filter(lambda person: person.may_answer == qid, build_person()),
-        *map(
-            filter_other,
-            filter(lambda other: other.may_answer == qid, build_other()),
-        ),
-    )
-
-
-@lru_cache(maxsize=CACHE_SIZE)
-def query_by_ntktext(text: str) -> Set[str]:
-    """Query by ntk Text."""
+def by_person(text: str) -> Set[Person]:
+    """Query persons by Person may_answer."""
     return set(
         map(
-            lambda ans: str(ans.asdict().get(PID, EMPTYS)),
+            lambda person: Person(
+                **dict(
+                    build_persons()
+                    .get(str(person.asdict().get(PID, EMPTY)), EP)
+                    ._asdict(),
+                    from_="self may answer",
+                ),
+            ),
             G.query(
-                "select ?pid where {"
-                # Find the query text id as `qid`.
-                f'?pid ?ntkqc "{text}"^^xsd:string'
+                "select distinct ?pid where {"
+                f'?pidt ?is "{text}"^^xsd:string .'
+                "?pid sdso:mayAnswer ?pidt . "
+                "?pid rdf:type <http://xmlns.com/foaf/0.1/Person>"
                 "}"
             ),
         )
     )
 
 
-@lru_cache(maxsize=CACHE_SIZE)
-def query_by_address(qid: str) -> Set[str]:
-    """Querry by ntkq address to."""
+def by_other(text: str) -> Set[Person]:
+    """Query persons by Other may_answer."""
     return set(
         map(
-            lambda ans: str(ans.asdict().get(PID, EMPTYS)),
-            G.query("select ?pid where {" f"?pid sdso:addresses <{qid}>" "}"),
+            lambda ans: (
+                lambda pid, pido: Person(
+                    **dict(
+                        build_persons().get(pid, EP)._asdict(),
+                        from_=f"from {build_others().get(pido, EO).name}",
+                    ),
+                )
+            )(
+                str(ans.asdict().get(PID, EMPTY)),
+                str(ans.asdict().get("pido", EMPTY)),
+            ),
+            G.query(
+                "select distinct ?pid ?pido where {"
+                f'?pidt ?is "{text}"^^xsd:string . '
+                "?pido sdso:mayAnswer ?pidt . "
+                "{?pid sdso:worksAt ?pido} "
+                "union"
+                "{?pid sdso:worksOn ?pido} "
+                "}"
+            ),
         )
     )
 
 
-def distinct(person: Person) -> bool:
-    """Distinct person by make their may_answer to EMPTYS."""
-    return not bool(person.pid in PERSONS or PERSONS.add(person.pid))
+def by_address(text: str) -> Set[Person]:
+    """Query persons by Person may answer address."""
+    return reduce(
+        or_,
+        map(
+            lambda pida: (lambda qtext: by_other(qtext) | by_person(qtext))(
+                pida.asdict().get("text", "")
+            ),
+            G.query(
+                "select distinct ?text where {"
+                f'?pidt ?is "{text}"^^xsd:string . '
+                "?pida sdso:addresses ?pidt . "
+                "{?pida sdso:ntkText ?text} "
+                "union"
+                "{?pida sdso:journalisticQuestion ?text}"
+                "}"
+            ),
+        ),
+        set(),
+    )
 
 
-@lru_cache(maxsize=CACHE_SIZE)
-def query(query_str: str) -> Set[Person]:
+def query(text: str, distinct: bool = True) -> Set[Person]:
     """Query owl graph."""
-    PERSONS.clear()
     return set(
-        filter(
-            distinct,
-            chain.from_iterable(
+        map(
+            lambda person: distinct
+            and Person(**dict(person._asdict(), from_=""))
+            or person,
+            reduce(
+                or_,
                 map(
-                    filtered,
-                    (
-                        lambda ans: ans
-                        | set(chain.from_iterable(map(query_by_address, ans)))
-                    )(query_by_ntktext(query_str)),
-                )
+                    lambda func: func(text), (by_person, by_other, by_address)
+                ),
+                set(),
             ),
         )
     )
