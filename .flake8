@@ -7,6 +7,7 @@ ignore =
     C812,
     EXE001,
     W503,
+    WPS111,
     WPS221,
     WPS305,
     WPS326,
