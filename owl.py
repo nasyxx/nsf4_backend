@@ -42,6 +42,7 @@ Which to you shall seem probable, of every
                           -- The Tempest
 """
 # Standard Library
+import re
 from functools import lru_cache, reduce
 from operator import or_
 
@@ -174,7 +175,15 @@ def build_persons() -> Dict[str, Person]:
                             str(persond.get(PID, EMPTY)),
                             str(persond.get("firstname", EMPTY)),
                             str(persond.get("lastname", EMPTY)),
-                            str(persond.get("job_title", EMPTY)),
+                            " ".join(
+                                re.findall(  # handle
+                                    # Scientist-Ecosystem or
+                                    # ScientistEcosystem to
+                                    r"([A-Z][a-z,]*)",
+                                    #  Scientist Ecosystem
+                                    str(persond.get("job_title", EMPTY)),
+                                )
+                            ),
                             str(persond.get("homepage", EMPTY)),
                             from_=EMPTY,
                             **get_works(
