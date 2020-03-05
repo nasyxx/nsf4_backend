@@ -75,10 +75,11 @@ https://www.elastic.co/guide/en/elasticsearch/reference/current/targz.html
 
 *** example
 
+#+HTML: <details><summanry>Search query example</summary>
+
 #+begin_src restclient :exports both
   GET http://localhost:8080/q?key=How can financial incentives be developed that bring new partnerships and creative approaches to reduce water quality impacts and improve treatment?&nsw=true
 #+end_src
-#+HTML: <details><summanry>Search query example</summary>
 
 #+RESULTS:
 #+BEGIN_SRC js
@@ -1192,9 +1193,9 @@ https://www.elastic.co/guide/en/elasticsearch/reference/current/targz.html
 // HTTP/1.1 200 OK
 // Content-Type: application/json; charset=utf-8
 // Content-Length: 100793
-// Date: Tue, 03 Mar 2020 05:38:47 GMT
+// Date: Thu, 05 Mar 2020 18:14:55 GMT
 // Server: Python/3.7 aiohttp/3.6.2
-// Request duration: 0.013458s
+// Request duration: 0.014173s
 #+END_SRC
 
 #+HTML: </details>
@@ -1209,67 +1210,75 @@ https://www.elastic.co/guide/en/elasticsearch/reference/current/targz.html
 
 *** example
 
-#+begin_src restclient :exports both
-  GET http://localhost:8080/pq?key=Who are the users and stakeholders of water quality models and information?
-#+end_src
-
 #+HTML: <details><summanry>OWL query example</summary>
+
+#+begin_src restclient :exports both
+  GET http://localhost:8080/pq?key=What are existing levels of DO in marine waters
+#+end_src
 
 #+RESULTS:
 #+BEGIN_SRC js
 [
+  {
+    "pid": "http://www.sdsconsortium.org/schemas/sds-okn.owl#WQIntv000060001",
+    "firstname": "Teizeen",
+    "lastname": "Mohamedali",
+    "job_title": "Modeler",
+    "homepage": "https://www.knkx.org/post/return-salish-sea-environmental-engineer-teizeen-mohamedali",
+    "works_at_name": "WA Ecology",
+    "works_at_url": "https://ecology.wa.gov/",
+    "works_on_name": "Puget Sound Nutrient Source Production project",
+    "works_on_url": "",
+    "works_on_decs": "",
+    "from_": ""
+  },
+  {
+    "pid": "http://www.sdsconsortium.org/schemas/sds-okn.owl#WQIntv000060003",
+    "firstname": "Parker",
+    "lastname": "MacCready",
+    "job_title": "Scientist",
+    "homepage": "https://faculty.washington.edu/pmacc/",
+    "works_at_name": "",
+    "works_at_url": "",
+    "works_on_name": "Salish Sea Model",
+    "works_on_url": "https://salish-sea.pnnl.gov/ ",
+    "works_on_decs": "",
+    "from_": ""
+  },
   {
     "pid": "http://www.sdsconsortium.org/schemas/sds-okn.owl#WQIntv000060002",
     "firstname": "Sheelagh",
     "lastname": "McCarthy",
     "job_title": "Manager",
     "homepage": "https://waecy.maps.arcgis.com/apps/MapSeries/index.html?appid=907dd54271f44aa0b1f08efd7efc4e30",
-    "works_at": {
-      "pid": "",
-      "label": "",
-      "url": "",
-      "may_answer": "",
-      "creator": ""
-    },
-    "works_on": {
-      "pid": "http://www.sdsconsortium.org/schemas/sds-okn.owl#WQIntv000060018",
-      "label": "Puget Sound Nutrient Source Production project",
-      "url": "",
-      "may_answer": "http://www.sdsconsortium.org/schemas/sds-okn.owl#WQIntv00006_NTKQ.C1.24",
-      "creator": ""
-    },
-    "may_answer": ""
+    "works_at_name": "WA Ecology",
+    "works_at_url": "https://ecology.wa.gov/",
+    "works_on_name": "Puget Sound Nutrient Source Production project",
+    "works_on_url": "",
+    "works_on_decs": "",
+    "from_": ""
   },
   {
-    "pid": "http://www.sdsconsortium.org/schemas/sds-okn.owl#WQIntv000060004",
-    "firstname": "Chris",
-    "lastname": "Harvey",
+    "pid": "http://www.sdsconsortium.org/schemas/sds-okn.owl#WQIntv000060026",
+    "firstname": "Tarang",
+    "lastname": "Khangaonkarat",
     "job_title": "Scientist",
-    "homepage": "https://www.nwfsc.noaa.gov/contact/display_staffprofile.cfm?staffid=154",
-    "works_at": {
-      "pid": "",
-      "label": "",
-      "url": "",
-      "may_answer": "",
-      "creator": ""
-    },
-    "works_on": {
-      "pid": "http://www.sdsconsortium.org/schemas/sds-okn.owl#WQIntv000060010",
-      "label": "Eyes Over Puget Sound",
-      "url": "",
-      "may_answer": "http://www.sdsconsortium.org/schemas/sds-okn.owl#WQIntv00006_NTKQ.C1.32",
-      "creator": "http://www.sdsconsortium.org/schemas/sds-okn.owl#WQIntv000060004"
-    },
-    "may_answer": ""
+    "homepage": "http://www.skagitclimatescience.org/about-us/who-we-are/tarang-khangaonkar/",
+    "works_at_name": "",
+    "works_at_url": "",
+    "works_on_name": "Salish Sea Model",
+    "works_on_url": "https://salish-sea.pnnl.gov/ ",
+    "works_on_decs": "",
+    "from_": ""
   }
 ]
-// GET http://localhost:8080/pq?key=Who are the users and stakeholders of water quality models and information?
+// GET http://localhost:8080/pq?key=What are existing levels of DO in marine waters
 // HTTP/1.1 200 OK
 // Content-Type: application/json; charset=utf-8
-// Content-Length: 1259
-// Date: Tue, 03 Mar 2020 05:40:31 GMT
+// Content-Length: 1684
+// Date: Thu, 05 Mar 2020 18:22:37 GMT
 // Server: Python/3.7 aiohttp/3.6.2
-// Request duration: 0.004666s
+// Request duration: 0.029672s
 #+END_SRC
 
 #+HTML: </details>
