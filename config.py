@@ -61,6 +61,8 @@ RETURN_SIZE = 100
 COOKIE_LENGTH = 16
 DB_PATH = "db"
 
+DISTINCT = True
+
 INDEX = "all"
 
 BASE = Path("../data")

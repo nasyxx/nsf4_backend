@@ -50,7 +50,7 @@ from operator import or_
 from rdflib import Graph
 
 # Config
-from config import OWLF
+from config import DISTINCT, OWLF
 
 # Types
 from typing import Dict, NamedTuple, Set
@@ -292,11 +292,11 @@ def by_address(text: str) -> Set[Person]:
     )
 
 
-def query(text: str, distinct: bool = True) -> Set[Person]:
+def query(text: str) -> Set[Person]:
     """Query owl graph."""
     return set(
         map(
-            lambda person: distinct
+            lambda person: DISTINCT
             and Person(**dict(person._asdict(), from_=""))
             or person,
             reduce(
