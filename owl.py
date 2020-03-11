@@ -228,7 +228,7 @@ def by_person(text: str) -> Set[Person]:
                     build_persons()
                     .get(str(person.asdict().get(PID, EMPTY)), EP)
                     ._asdict(),
-                    from_="self may answer",
+                    from_="May answer by himself",
                 ),
             ),
             G.query(
@@ -250,7 +250,7 @@ def by_other(text: str) -> Set[Person]:
                 lambda pid, pido: Person(
                     **dict(
                         build_persons().get(pid, EP)._asdict(),
-                        from_=f"from {build_others().get(pido, EO).name}",
+                        from_=f"My answer from {build_others().get(pido, EO).name}",
                     ),
                 )
             )(
